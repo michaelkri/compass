@@ -1,3 +1,4 @@
+from typing import Optional
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrapers import ALL_SCRAPERS
@@ -17,7 +18,7 @@ def init_webdriver():
     return driver
 
 
-def run_update():
+def run_update() -> None:
     driver = init_webdriver()
     
     for scraper in ALL_SCRAPERS:
@@ -29,3 +30,7 @@ def run_update():
                 db.commit()
 
     driver.quit()
+
+
+def fetch_job_description(job_id: int) -> Optional[str]:
+    return ""

@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import Depends, FastAPI, Request
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -7,7 +7,7 @@ from pathlib import Path
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy.orm import Session
-from core.db import get_db, create_database_tables
+from core.db import get_db, create_database_tables, get_or_create_job_description
 from core.models import Job
 from core.updater import run_update
 
@@ -71,6 +71,19 @@ async def read_root(
         name="index.html",
         context=context
     )
+
+
+@app.get("api/jobs/{job_id}", response_model=Job)
+async def get_job_content(
+    job_id: int,
+    db: Session = Depends(get_db)
+):
+    job = get_or_create_job_description(db, job_id)
+
+    if job is None:
+        raise HTTPException(status_code=404, detail=f"Job with ID {job_id} not found.")
+    
+    return job
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Text
+from sqlalchemy import Column, Integer, Text
 from sqlalchemy.orm import DeclarativeBase
 
 
@@ -9,6 +9,9 @@ class Base(DeclarativeBase):
 class Job(Base):
     __tablename__ = "job"
 
+    id = Column(Integer, primary_key=True, autoincrement=True)
     title: str = Column(Text)
     company: str = Column(Text)
-    url: str = Column(Text, primary_key=True)
+    location: str = Column(Text)
+    url: str = Column(Text)
+    description: str = Column(Text, nullable=True)

@@ -35,7 +35,7 @@
 
   <body class="dark bg-background text-foreground">
     <div class="flex h-screen flex-col">
-      <header class="border-border flex h-14 flex-shrink-0 items-center justify-between border-b bg-gradient-to-r from-slate-900 to-slate-800 px-6">
+      <!-- <header class="border-border flex h-14 flex-shrink-0 items-center justify-between border-b bg-gradient-to-r from-slate-900 to-slate-800 px-6">
         <div class="flex items-center gap-2">
           <div class="rounded-lg bg-blue-500/10 p-1.5">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase-icon lucide-briefcase h-5 w-5 text-blue-400">
@@ -51,18 +51,18 @@
             <circle cx="12" cy="12" r="3" />
           </svg>
         </button>
-      </header>
+      </header> -->
 
       <div class="flex flex-1">
         <aside class="hidden md:block w-80 border-r border-border bg-card flex flex-col">
           <div class="border-border flex flex-shrink-0 items-center justify-between border-b px-6 py-4">
             <div class="text-foreground font-semibold">Jobs</div>
-            <button class="hover:bg-accent rounded-md p-2">
+            <!-- <button class="hover:bg-accent rounded-md p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus h-4 w-4">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />
               </svg>
-            </button>
+            </button> -->
           </div>
           
           <div class="flex-1 overflow-y-auto p-3">
@@ -73,12 +73,12 @@
                         {{ job.title }}
                     </h3>
                     <p class="text-sm text-muted-foreground">
-                        {{ job.company }} • Location
+                        {{ job.company }}
                     </p>
                 </div>
                 <div class="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>4 hours ago</span>
-                    <span class="bg-secondary rounded-md font-medium">Indeed</span>
+                    <span>{{ job.location }}</span>
+                    <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 inset-ring inset-ring-blue-700/10">Indeed</span>
                 </div>
             </button>
             {% endfor %}

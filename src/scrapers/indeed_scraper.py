@@ -21,11 +21,12 @@ class IndeedScraper:
         for job_entry in soup.find_all("div", attrs={"data-testid": "slider_item"}):
             job_title = job_entry.find("a").text.strip()
             company_name = job_entry.find("span", {"data-testid": "company-name"}).text.strip()
+            location = job_entry.find("div", {"data-testid": "text-location"}).text.strip()
             
             job_id = job_entry.find("a").get("id")[4:]
             job_url = f"https://il.indeed.com/viewjob?jk={job_id}"
 
-            job = Job(title=job_title, company=company_name, url=job_url)
+            job = Job(title=job_title, company=company_name, location=location, url=job_url)
 
             jobs.append(job)
 
