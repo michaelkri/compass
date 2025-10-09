@@ -1,3 +1,7 @@
 bs4
 selenium
 pydantic
+fastapi
+uvicorn
+apscheduler
+sqlalchemy

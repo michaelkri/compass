@@ -1,7 +1,7 @@
-from typing import Generator, Tuple, Dict
+from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from .job import Job
+from core.db import Job
 
 
 class IndeedScraper:
@@ -11,14 +11,13 @@ class IndeedScraper:
         self.search_url = f"https://il.indeed.com/jobs?q={title}&l={location}"
 
 
-    def fetch(self, driver: webdriver.Chrome) -> Generator[Job, None, None]:
+    def fetch(self, driver: webdriver.Chrome) -> List[Job]:
         driver.get(self.search_url)
 
         html_source = driver.page_source
         soup = BeautifulSoup(html_source, "html.parser")
 
-        print(soup)
-
+        jobs = []
         for job_entry in soup.find_all("div", attrs={"data-testid": "slider_item"}):
             job_title = job_entry.find("a").text.strip()
             company_name = job_entry.find("span", {"data-testid": "company-name"}).text.strip()
@@ -28,4 +27,6 @@ class IndeedScraper:
 
             job = Job(title=job_title, company=company_name, url=job_url)
 
-            yield job
+            jobs.append(job)
+
+        return jobs

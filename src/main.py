@@ -1,27 +1,79 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from scrapers.indeed_scraper import IndeedScraper
+from contextlib import asynccontextmanager
+from fastapi import Depends, FastAPI, Request
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+from fastapi.staticfiles import StaticFiles
+from pathlib import Path
+from apscheduler.schedulers.asyncio import AsyncIOScheduler
+from apscheduler.triggers.cron import CronTrigger
+from sqlalchemy.orm import Session
+from core.db import get_db, create_tables
+from core.models import Job
+from src.core.updater import run_update
 
 
-def init_webdriver():
-    chrome_options = Options()
+BASE_DIR = Path(__file__).resolve().parent.parent
+templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+scheduler = AsyncIOScheduler()
 
-    # chrome_options.add_argument("--headless")
-    chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
-    chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
-    chrome_options.add_experimental_option("useAutomationExtension", False)
 
-    driver = webdriver.Chrome(options=chrome_options)
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Create database tables if needed
+    create_tables()
 
-    return driver
+    try:
+        scheduler.add_job(
+            func=run_update, 
+            trigger=CronTrigger(hour='8,11,14,17'),
+            id='scraper_job', 
+            name='Periodic Job Scraper',
+            replace_existing=True,
+            misfire_grace_time=600
+        )
+
+        scheduler.start()
+        print("Scheduler started.")
+
+    except Exception as e:
+        print(f"Error starting scheduler: {e}")
+
+    yield
+
+    scheduler.shutdown()
+
+
+app = FastAPI(
+    title="Vantage",
+    lifespan=lifespan
+)
+
+
+app.mount(
+    "/static",
+    StaticFiles(directory=str(BASE_DIR / "static")),
+    name="static"
+)
+
+
+@app.get("/", response_class=HTMLResponse)
+async def dashboard_view(
+    request: Request,
+    db: Session = Depends(get_db)
+):
+    jobs = db.query(Job).limit(50).all()
+
+    context = {
+        "request": request, 
+        "jobs": jobs
+    }
+
+    return templates.TemplateResponse(
+        name="index.html",
+        context=context
+    )
 
 
 if __name__ == "__main__":
-    scraper = IndeedScraper("student software", "israel")
-    
-    driver = init_webdriver()
-
-    for job in scraper.fetch(driver):
-        print(f"{job.title} - {job.company} - {job.url}")
-
-    driver.quit()
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
