@@ -22,6 +22,6 @@ if __name__ == "__main__":
     driver = init_webdriver()
 
     for job in scraper.fetch(driver):
-        print(f"{job[0]} - {job[1]}")
+        print(f"{job.title} - {job.company} - {job.url}")
 
     driver.quit()
