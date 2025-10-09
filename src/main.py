@@ -7,7 +7,7 @@ from pathlib import Path
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy.orm import Session
-from core.db import get_db, create_tables
+from core.db import get_db, create_database_tables
 from core.models import Job
 from core.updater import run_update
 
@@ -19,18 +19,17 @@ scheduler = AsyncIOScheduler()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Create database tables if needed
-    create_tables()
+    create_database_tables()
 
     try:
-        scheduler.add_job(
-            func=run_update, 
-            trigger=CronTrigger(hour='8,11,14,17'),
-            id='scraper_job', 
-            name='Periodic Job Scraper',
-            replace_existing=True,
-            misfire_grace_time=600
-        )
+        # scheduler.add_job(
+        #     func=run_update, 
+        #     trigger=CronTrigger(hour='8,11,14,17'),
+        #     id='scraper_job', 
+        #     name='Periodic Job Scraper',
+        #     replace_existing=True,
+        #     misfire_grace_time=600
+        # )
 
         scheduler.start()
         print("Scheduler started.")
@@ -57,7 +56,7 @@ app.mount(
 
 
 @app.get("/", response_class=HTMLResponse)
-async def dashboard_view(
+async def read_root(
     request: Request,
     db: Session = Depends(get_db)
 ):

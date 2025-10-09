@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrapers import ALL_SCRAPERS
+from .db import get_db_session
 
 
 def init_webdriver():
@@ -22,7 +23,9 @@ def run_update():
     for scraper in ALL_SCRAPERS:
         scpr = scraper("student software", "israel")
 
-        for job in scpr.fetch(driver):
-            print(f"{job.title} - {job.company} - {job.url}")
+        with get_db_session() as db:
+            for job in scpr.fetch(driver):
+                db.add(job)
+                db.commit()
 
     driver.quit()

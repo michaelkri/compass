@@ -11,13 +11,19 @@ engine = create_engine(DATABASE_URL, echo=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
-def create_tables():
+def create_database_tables():
     Base.metadata.create_all(engine)
 
 
-def get_db():
+@contextmanager
+def get_db_session():
     db = SessionLocal()
     try:
         yield db
     finally:
         db.close()
+
+
+def get_db():
+    with get_db_session() as db:
+        yield db
