@@ -1,3 +1,3 @@
-from indeed_scraper import IndeedScraper
+from .indeed_scraper import IndeedScraper
 
 ALL_SCRAPERS = [IndeedScraper]

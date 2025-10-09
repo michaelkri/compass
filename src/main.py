@@ -9,10 +9,10 @@ from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy.orm import Session
 from core.db import get_db, create_tables
 from core.models import Job
-from src.core.updater import run_update
+from core.updater import run_update
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 scheduler = AsyncIOScheduler()
 

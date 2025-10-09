@@ -1,6 +1,6 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from src.scrapers import ALL_SCRAPERS
+from scrapers import ALL_SCRAPERS
 
 
 def init_webdriver():

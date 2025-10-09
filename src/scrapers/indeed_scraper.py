@@ -1,7 +1,7 @@
 from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from core.db import Job
+from core.models import Job
 
 
 class IndeedScraper:
