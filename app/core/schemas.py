@@ -10,3 +10,4 @@ class JobSchema(BaseModel):
     location: str
     url: str
     description: str
+    source: str

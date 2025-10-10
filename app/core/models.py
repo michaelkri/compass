@@ -11,3 +11,4 @@ class Job(Base):
     location: str = Column(Text)
     url: str = Column(Text)
     description: str = Column(Text, nullable=True)
+    source: str = Column(Text)

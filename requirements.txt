@@ -5,3 +5,4 @@ uvicorn
 apscheduler
 sqlalchemy
 jinja2
+trafilatura

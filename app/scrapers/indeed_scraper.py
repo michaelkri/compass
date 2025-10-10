@@ -1,6 +1,7 @@
 from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
+from trafilatura import extract
 from core.models import Job
 
 
@@ -11,7 +12,7 @@ class IndeedScraper:
         self.search_url = f"https://il.indeed.com/jobs?q={title}&l={location}"
 
 
-    def fetch(self, driver: webdriver.Chrome) -> List[Job]:
+    def fetch_jobs(self, driver: webdriver.Chrome) -> List[Job]:
         driver.get(self.search_url)
 
         html_source = driver.page_source
@@ -26,8 +27,23 @@ class IndeedScraper:
             job_id = job_entry.find("a").get("id")[4:]
             job_url = f"https://il.indeed.com/viewjob?jk={job_id}"
 
-            job = Job(title=job_title, company=company_name, location=location, url=job_url)
+            job = Job(
+                title=job_title,
+                company=company_name,
+                location=location,
+                url=job_url,
+                source="Indeed"
+            )
 
             jobs.append(job)
 
         return jobs
+    
+
+    @staticmethod
+    def fetch_description(url: str, driver: webdriver.Chrome) -> str:
+        driver.get(url)
+
+        html_source = driver.page_source        
+        description = extract(html_source)
+        return description
