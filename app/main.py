@@ -74,7 +74,7 @@ async def read_root(
     )
 
 
-@app.get("/jobs/{job_id}", response_model=JobSchema)
+@app.get("/job/{job_id}", response_model=JobSchema)
 async def get_job_content(
     job_id: int,
     db: Session = Depends(get_db)

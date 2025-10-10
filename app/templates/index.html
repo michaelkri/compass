@@ -1,41 +1,63 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vantage</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-    :root {
-      --background: hsl(210, 36%, 96%);      /* blue-50 */
-      --foreground: hsl(215, 20%, 25%);      /* blue-900 (muted) */
-      --card: hsl(210, 36%, 96%);            /* blue-50 */
-      --primary: hsl(213, 27%, 84%);         /* blue-200 */
-      --primary-foreground: hsl(215, 20%, 25%); /* blue-900 (muted) */
-      --secondary: hsl(210, 16%, 82%);       /* blue-100 */
-      --secondary-foreground: hsl(215, 20%, 25%); /* blue-900 (muted) */
-      --muted-foreground: hsl(213, 19%, 38%);   /* blue-700 (muted) */
-      --accent: hsl(210, 36%, 90%);          /* blue-100 */
-      --border: hsl(213, 27%, 84%);          /* blue-200 */
-    }
-    .dark {
-      --background: hsl(215, 25%, 18%);      /* blue-900 (muted dark) */
-      --foreground: hsl(210, 36%, 96%);      /* blue-50 */
-      --card: hsl(215, 25%, 18%);            /* blue-900 (muted dark) */
-      --primary: hsl(213, 27%, 44%);         /* blue-700 */
-      --primary-foreground: hsl(210, 36%, 96%); /* blue-50 */
-      --secondary: hsl(213, 27%, 34%);       /* blue-800 */
-      --secondary-foreground: hsl(210, 36%, 96%); /* blue-50 */
-      --muted-foreground: hsl(213, 19%, 68%);   /* blue-400 (muted) */
-      --accent: hsl(213, 27%, 34%);          /* blue-800 */
-      --border: hsl(213, 27%, 34%);          /* blue-800 */
-    }
-    </style>
-  </head>
 
-  <body class="dark bg-background text-foreground">
-    <div class="flex h-screen flex-col">
-      <!-- <header class="border-border flex h-14 flex-shrink-0 items-center justify-between border-b bg-gradient-to-r from-slate-900 to-slate-800 px-6">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vantage</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --background: hsl(210, 36%, 96%);
+      /* blue-50 */
+      --foreground: hsl(215, 20%, 25%);
+      /* blue-900 (muted) */
+      --card: hsl(210, 36%, 96%);
+      /* blue-50 */
+      --primary: hsl(213, 27%, 84%);
+      /* blue-200 */
+      --primary-foreground: hsl(215, 20%, 25%);
+      /* blue-900 (muted) */
+      --secondary: hsl(210, 16%, 82%);
+      /* blue-100 */
+      --secondary-foreground: hsl(215, 20%, 25%);
+      /* blue-900 (muted) */
+      --muted-foreground: hsl(213, 19%, 38%);
+      /* blue-700 (muted) */
+      --accent: hsl(210, 36%, 90%);
+      /* blue-100 */
+      --border: hsl(213, 27%, 84%);
+      /* blue-200 */
+    }
+
+    .dark {
+      --background: hsl(215, 25%, 18%);
+      /* blue-900 (muted dark) */
+      --foreground: hsl(210, 36%, 96%);
+      /* blue-50 */
+      --card: hsl(215, 25%, 18%);
+      /* blue-900 (muted dark) */
+      --primary: hsl(213, 27%, 44%);
+      /* blue-700 */
+      --primary-foreground: hsl(210, 36%, 96%);
+      /* blue-50 */
+      --secondary: hsl(213, 27%, 34%);
+      /* blue-800 */
+      --secondary-foreground: hsl(210, 36%, 96%);
+      /* blue-50 */
+      --muted-foreground: hsl(213, 19%, 68%);
+      /* blue-400 (muted) */
+      --accent: hsl(213, 27%, 34%);
+      /* blue-800 */
+      --border: hsl(213, 27%, 34%);
+      /* blue-800 */
+    }
+  </style>
+</head>
+
+<body class="dark bg-background text-foreground">
+  <div class="flex h-screen flex-col">
+    <!-- <header class="border-border flex h-14 flex-shrink-0 items-center justify-between border-b bg-gradient-to-r from-slate-900 to-slate-800 px-6">
         <div class="flex items-center gap-2">
           <div class="rounded-lg bg-blue-500/10 p-1.5">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-briefcase-icon lucide-briefcase h-5 w-5 text-blue-400">
@@ -53,88 +75,119 @@
         </button>
       </header> -->
 
-      <div class="flex flex-1">
-        <aside class="hidden md:block w-80 border-r border-border bg-card flex flex-col">
-          <div class="border-border flex flex-shrink-0 items-center justify-between border-b px-6 py-4">
-            <div class="text-foreground font-semibold">Jobs</div>
-            <!-- <button class="hover:bg-accent rounded-md p-2">
+    <div class="flex flex-1">
+      <aside class="hidden md:block w-80 border-r border-border bg-card flex flex-col">
+        <div class="border-border flex flex-shrink-0 items-center justify-between border-b px-6 py-4">
+          <div class="text-foreground font-semibold">Jobs</div>
+          <!-- <button class="hover:bg-accent rounded-md p-2">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus h-4 w-4">
                 <path d="M5 12h14" />
                 <path d="M12 5v14" />
               </svg>
             </button> -->
-          </div>
-          
-          <div class="flex-1 overflow-y-auto p-3">
-            {% for job in jobs %}
-            <button class="w-full text-left p-4 rounded-lg transition-colors hover:bg-accent border-b border-border">
-                <div class="mb-3">
-                    <h3 class="font-bold text-foreground text-base leading-tight">
-                        ({{ job.id }}) {{ job.title }}
-                    </h3>
-                    <p class="text-sm text-muted-foreground">
-                        {{ job.company }}
-                    </p>
-                </div>
-                <div class="flex items-center justify-between text-xs text-muted-foreground">
-                    <span>{{ job.location }}</span>
-                    <span class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 inset-ring inset-ring-blue-700/10">Indeed</span>
-                </div>
-            </button>
-            {% endfor %}
-          </div>
-        </aside>
+        </div>
 
-        <main class="flex h-full flex-1 flex-col">
-          <div class="flex-1 overflow-y-auto p-8">
-            <div class="mx-auto max-w-3xl">
-              <div class="border-border mb-8 border-b pb-6">
-                <div class="mb-4 flex items-start justify-between gap-4">
-                  <h1 class="text-foreground flex-1 text-2xl font-bold">Product Launch Strategy</h1>
-                  <button class="border-border hover:bg-accent flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm">Edit</button>
-                </div>
-                <div class="text-muted-foreground mb-4 flex flex-wrap items-center gap-3 text-sm">
-                  <span>Marketing</span><span>•</span>
-                  <div class="flex items-center gap-1.5"><span>New York</span></div>
-                  <span class="border-border rounded-md border px-2 py-0.5 text-xs">Work</span>
-                </div>
+        <div class="flex-1 overflow-y-auto p-3">
+          {% for job in jobs %}
+          <button
+            class="job-entry-button w-full text-left p-4 rounded-lg transition-colors hover:bg-accent border-b border-border" data-job-id="{{ job.id }}">
+            <div class="mb-3">
+              <h3 class="font-bold text-foreground text-base leading-tight">
+                ({{ job.id }}) {{ job.title }}
+              </h3>
+              <p class="text-sm text-muted-foreground">
+                {{ job.company }}
+              </p>
+            </div>
+            <div class="flex items-center justify-between text-xs text-muted-foreground">
+              <span>{{ job.location }}</span>
+              <span
+                class="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 inset-ring inset-ring-blue-700/10">{{
+                job.source }}</span>
+            </div>
+          </button>
+          {% endfor %}
+        </div>
+      </aside>
+
+      <main class="flex h-full flex-1 flex-col">
+        <div class="flex-1 overflow-y-auto p-8">
+          <div class="mx-auto max-w-3xl">
+            <div class="border-border mb-8 border-b pb-6">
+              <div class="mb-4 flex items-start justify-between gap-4">
+                <h1 class="job-title text-foreground flex-1 text-2xl font-bold">Job Title</h1>
+                <!-- <button class="border-border hover:bg-accent flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm">Edit</button> -->
               </div>
-              <div class="prose max-w-none">
-                <p>Our comprehensive product launch strategy focuses on three key phases designed to maximize market impact and user adoption.</p>
-                <h2>Phase 1: Pre-Launch</h2>
-                <p>We'll begin with targeted beta testing among our most engaged users, gathering critical feedback to refine the product experience.</p>
-                <h2>Phase 2: Soft Launch</h2>
-                <p>A controlled rollout to select markets will allow us to validate our assumptions and make any necessary adjustments before the full launch.</p>
-                <h2>Phase 3: Full Launch</h2>
-                <p>The culmination of our efforts will be a coordinated launch across all channels, supported by a comprehensive marketing campaign.</p>
-                <h3>Success Metrics</h3>
-                <p>We're tracking user acquisition, engagement rates, and customer satisfaction scores.</p>
+              <div class="text-muted-foreground mb-4 flex flex-wrap items-center gap-3 text-sm">
+                <span class="job-company">Company</span><span>•</span>
+                <div class="job-location flex items-center gap-1.5"><span>Location</span></div>
+                <span class="job-source border-border rounded-md border px-2 py-0.5 text-xs">Source</span>
               </div>
             </div>
+            <div class="job-description prose max-w-none">
+              <p>Placeholder for job description</p>
+            </div>
           </div>
-        </main>
+        </div>
+      </main>
 
-        <aside class="border-border bg-card flex hidden h-full w-96 flex-col border-l lg:block">
-          <div class="border-border flex flex-shrink-0 items-center gap-2 border-b px-6 py-4">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sparkle-icon lucide-sparkle text-primary h-5 w-5"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" /></svg>
-            <div class="text-foreground font-semibold">AI Analysis</div>
+      <aside class="border-border bg-card flex hidden h-full w-96 flex-col border-l lg:block">
+        <div class="border-border flex flex-shrink-0 items-center gap-2 border-b px-6 py-4">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-sparkle-icon lucide-sparkle text-primary h-5 w-5">
+            <path
+              d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z" />
+          </svg>
+          <div class="text-foreground font-semibold">AI Analysis</div>
+        </div>
+        <div class="flex-1 space-y-3 overflow-y-auto p-4">
+          <div class="border-border bg-background/50 rounded-lg border">
+            <h3 class="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <span>Key Takeaways</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path>
+              </svg>
+            </h3>
+            <div class="text-muted-foreground px-4 pb-4 text-sm">This document outlines a three-phase launch strategy
+              focused on market disruption and user-centered design.</div>
           </div>
-          <div class="flex-1 space-y-3 overflow-y-auto p-4">
-            <div class="border-border bg-background/50 rounded-lg border">
-              <h3 class="flex cursor-pointer items-center justify-between p-4 font-medium">
-                <span>Key Takeaways</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path></svg>
-              </h3>
-              <div class="text-muted-foreground px-4 pb-4 text-sm">This document outlines a three-phase launch strategy focused on market disruption and user-centered design.</div>
-            </div>
-            <div class="border-border bg-background/50 rounded-lg border">
-              <h3 class="flex cursor-pointer items-center justify-between p-4 font-medium">
-                <span>Recommendations</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path></svg>
-              </h3>
-              <div class="text-muted-foreground px-4 pb-4 text-sm">Consider adding contingency plans for potential market shifts and define more granular success metrics.</div>
-            </div>
+          <div class="border-border bg-background/50 rounded-lg border">
+            <h3 class="flex cursor-pointer items-center justify-between p-4 font-medium">
+              <span>Recommendations</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19 9-7 7-7-7"></path>
+              </svg>
+            </h3>
+            <div class="text-muted-foreground px-4 pb-4 text-sm">Consider adding contingency plans for potential market
+              shifts and define more granular success metrics.</div>
           </div>
-        </aside>
-      </div>
+        </div>
+      </aside>
     </div>
-  </body>
+  </div>
+
+  <script>
+    jobButtons = document.querySelectorAll('.job-entry-button');
+    
+    jobButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        jobButtons.forEach(btn => btn.classList.remove('bg-blue-500'));
+        button.classList.add('bg-blue-500');
+
+        fetch(`/job/${button.getAttribute('data-job-id')}`)
+          .then(response => response.json())
+          .then(data => {
+            document.querySelector('main .job-title').textContent = data.title;
+            document.querySelector('main .job-company').textContent = data.company;
+            document.querySelector('main .job-location span').textContent = data.location;
+            document.querySelector('main .job-source').textContent = data.source;
+            document.querySelector('main .job-description').innerHTML = data.description;
+          })
+          .catch(error => console.error('Error fetching job details:', error));
+      });
+    });
+  </script>
+</body>
+
 </html>
