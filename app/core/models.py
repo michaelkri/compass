@@ -1,9 +1,5 @@
 from sqlalchemy import Column, Integer, Text
-from sqlalchemy.orm import DeclarativeBase
-
-
-class Base(DeclarativeBase):
-    pass
+from .db import Base
 
 
 class Job(Base):

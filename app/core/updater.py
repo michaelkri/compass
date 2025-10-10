@@ -2,7 +2,9 @@ from typing import Optional
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from scrapers import ALL_SCRAPERS
+from sqlalchemy.orm import Session
 from .db import get_db_session
+from .models import Job
 
 
 def init_webdriver():
@@ -34,3 +36,28 @@ def run_update() -> None:
 
 def fetch_job_description(job_id: int) -> Optional[str]:
     return ""
+
+
+def get_or_create_job_description(db: Session, job_id: int) -> Optional[Job]:
+    # Try to get job from database
+    job = db.query(Job).filter(Job.url == job_id).first()
+
+    # Job not found in database
+    if not job:
+        return None
+    
+    # Previously fetched job description
+    if job.description:
+        return job
+    
+    # Description not saved yet: get from web
+    fetched_description = fetch_job_description(job_id)
+
+    # Save fetched description in database
+    job.description = fetched_description
+    
+    db.add(job)
+    db.commit()
+    db.refresh(job)
+
+    return job
