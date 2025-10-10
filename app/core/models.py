@@ -5,7 +5,7 @@ from .db import Base
 class Job(Base):
     __tablename__ = "job"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
     title: str = Column(Text)
     company: str = Column(Text)
     location: str = Column(Text)

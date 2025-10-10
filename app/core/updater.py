@@ -40,7 +40,7 @@ def fetch_job_description(job_id: int) -> Optional[str]:
 
 def get_or_create_job_description(db: Session, job_id: int) -> Optional[Job]:
     # Try to get job from database
-    job = db.query(Job).filter(Job.url == job_id).first()
+    job = db.query(Job).filter_by(id=job_id).first()
 
     # Job not found in database
     if not job:
