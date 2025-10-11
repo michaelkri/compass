@@ -44,6 +44,9 @@ class IndeedScraper:
     def fetch_description(url: str, driver: webdriver.Chrome) -> str:
         driver.get(url)
 
-        html_source = driver.page_source        
-        description = extract(html_source)
+        html_source = driver.page_source
+        soup = BeautifulSoup(html_source, "html.parser")
+
+        description_html = soup.find("div", {"id": "jobDescriptionText"})
+        description = "".join([str(tag) for tag in description_html.children])
         return description
