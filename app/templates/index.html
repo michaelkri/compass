@@ -10,56 +10,10 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="../static/style.css" />
   <style>
     body {
       font-family: 'Inter', sans-serif;
-    }
-
-    :root {
-      --background: hsl(210, 36%, 96%);
-      /* blue-50 */
-      --foreground: hsl(215, 20%, 25%);
-      /* blue-900 (muted) */
-      --card: hsl(210, 36%, 96%);
-      /* blue-50 */
-      --primary: hsl(213, 27%, 84%);
-      /* blue-200 */
-      --primary-foreground: hsl(215, 20%, 25%);
-      /* blue-900 (muted) */
-      --secondary: hsl(210, 16%, 82%);
-      /* blue-100 */
-      --secondary-foreground: hsl(215, 20%, 25%);
-      /* blue-900 (muted) */
-      --muted-foreground: hsl(213, 19%, 38%);
-      /* blue-700 (muted) */
-      --accent: hsl(210, 36%, 90%);
-      /* blue-100 */
-      --border: hsl(213, 27%, 84%);
-      /* blue-200 */
-    }
-
-    .dark {
-      --background: hsl(215, 25%, 18%);
-      /* blue-900 (muted dark) */
-      --foreground: hsl(210, 36%, 96%);
-      /* blue-50 */
-      --card: hsl(215, 25%, 18%);
-      /* blue-900 (muted dark) */
-      --primary: hsl(213, 27%, 44%);
-      /* blue-700 */
-      --primary-foreground: hsl(210, 36%, 96%);
-      /* blue-50 */
-      --secondary: hsl(213, 27%, 34%);
-      /* blue-800 */
-      --secondary-foreground: hsl(210, 36%, 96%);
-      /* blue-50 */
-      --muted-foreground: hsl(213, 19%, 68%);
-      /* blue-400 (muted) */
-      --accent: hsl(213, 27%, 34%);
-      /* blue-800 */
-      --border: hsl(213, 27%, 34%);
-      /* blue-800 */
     }
   </style>
 </head>
@@ -68,15 +22,15 @@
   <div class="flex h-screen">
 
     <!-- Column 1 -->
-    <aside class="w-80 bg-white border-r border-gray-200 flex flex-col">
-      <div class="p-4 font-bold border-b border-gray-200">
-        <div class="text-foreground font-semibold">Jobs</div>
+    <aside class="w-80 bg-white border-r border-border flex flex-col">
+      <div class="p-4 font-bold border-b border-border">
+        <div class="font-semibold">Jobs</div>
       </div>
       <div class="overflow-y-auto p-3">
         {% for job in jobs %}
-        <button class="job-entry-button mb-1 hover:bg-accent focus-visible:bg-accent w-full rounded-lg p-4 text-left transition-colors focus-visible:outline-none" data-job-id="{{ job.id }}">
+        <button class="job-entry-button mb-1 cursor-pointer hover:bg-accent w-full rounded-lg p-4 text-left" data-job-id="{{ job.id }}">
           <div class="mb-3">
-            <h3 class="text-foreground text-base leading-tight font-bold">{{ job.title }}</h3>
+            <h3 class="text-base leading-tight font-bold">{{ job.title }}</h3>
             <p class="text-muted-foreground mt-1 text-sm">{{ job.company }}</p>
           </div>
           
@@ -96,7 +50,7 @@
     </aside>
 
     <!-- Column 2 -->
-    <main class="bg-white border-r border-gray-200 flex flex-col flex-1">
+    <main class="bg-white border-r border-border flex flex-col flex-1">
       <div class="overflow-y-auto p-8">
         <div id="job-details-placeholder" class="flex h-full flex-col items-center justify-center space-y-4">
           <p class="text-muted-foreground">Select a job to view details</p>
@@ -134,7 +88,7 @@
 
     <!-- Column 3 -->
     <aside class="hidden w-96 bg-white flex flex-col lg:block">
-      <div class="p-4 font-bold border-b border-gray-200 flex flex-shrink-0 items-center gap-2">
+      <div class="p-4 font-bold border-b border-border flex flex-shrink-0 items-center gap-2">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round"
           class="lucide lucide-sparkle-icon lucide-sparkle text-primary h-5 w-5">
@@ -144,7 +98,7 @@
         <div class="text-foreground font-semibold">AI Analysis</div>
       </div>
       <div class="overflow-y-auto p-4 space-y-3">
-        <div class="border-gray-200 rounded-lg border">
+        <div class="border-border rounded-lg border">
           <h3 class="flex cursor-pointer items-center justify-between p-4 font-medium">
             <span>Key Takeaways</span><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -163,8 +117,12 @@
 
     jobButtons.forEach(button => {
       button.addEventListener('click', () => {
-        jobButtons.forEach(btn => btn.classList.remove('bg-gray-300'));
-        button.classList.add('bg-gray-300');
+        jobButtons.forEach(btn => {
+          btn.classList.remove('bg-blue-500', 'text-white')
+          btn.classList.add('hover:bg-accent');
+        });
+        button.classList.add('bg-blue-500', 'text-white');
+        button.classList.remove('hover:bg-accent');
 
         fetch(`/job/${button.getAttribute('data-job-id')}`)
           .then(response => response.json())
