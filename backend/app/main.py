@@ -1,8 +1,9 @@
 from contextlib import asynccontextmanager
-from fastapi import Depends, FastAPI, HTTPException, Request
-from fastapi.responses import HTMLResponse
+from fastapi import Depends, FastAPI, HTTPException
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+from fastapi.middleware.cors import CORSMiddleware
 from pathlib import Path
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
@@ -56,25 +57,45 @@ app.mount(
 )
 
 
-@app.get("/", response_class=HTMLResponse)
-async def read_root(
-    request: Request,
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# @app.get("/", response_class=HTMLResponse)
+# async def read_root(
+#     request: Request,
+#     db: Session = Depends(get_db)
+# ):
+#     jobs = db.query(Job).limit(50).all()
+
+#     context = {
+#         "request": request, 
+#         "jobs": jobs
+#     }
+
+#     return templates.TemplateResponse(
+#         name="index.html",
+#         context=context
+#     )
+
+
+@app.get("/api/jobs")
+async def read_jobs(
     db: Session = Depends(get_db)
 ):
     jobs = db.query(Job).limit(50).all()
 
-    context = {
-        "request": request, 
+    return {
         "jobs": jobs
     }
 
-    return templates.TemplateResponse(
-        name="index.html",
-        context=context
-    )
 
-
-@app.get("/job/{job_id}", response_model=JobSchema)
+@app.get("/api/job/{job_id}", response_model=JobSchema)
 async def get_job_content(
     job_id: int,
     db: Session = Depends(get_db)
