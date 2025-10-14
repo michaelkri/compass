@@ -5,7 +5,8 @@ from selenium.webdriver.chrome.options import Options
 from scrapers import ALL_SCRAPERS, IndeedScraper
 from sqlalchemy.orm import Session
 from .db import get_db_session
-from .models import Job
+from .models import Job, AIAnalysis
+from ..services.job_analysis import create_ai_analysis
 
 
 @contextmanager
@@ -65,3 +66,76 @@ def get_or_create_job_description(db: Session, job_id: int) -> Optional[Job]:
     db.refresh(job)
 
     return job
+
+
+def get_or_create_ai_analysis(db: Session, job_id: int) -> Optional[AIAnalysis]:
+    # Temporary
+    RESUME_CONTENT = """
+John Doe
+123 Main St, Citytown, ST 12345
+(123) 456-7890
+johndoe@email.com
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Citytown, Anytown, ST
+Expected Graduation: May 2025
+
+Relevant Courses:
+
+    Data Structures and Algorithms
+    Database Management Systems
+    Web Development
+    Operating Systems
+    Software Engineering
+
+SKILLS
+
+    Programming Languages: Python, Java, C++
+    Web Technologies: HTML, CSS, JavaScript, React
+    Database: SQL, MySQL
+    Version Control: Git
+    Agile Methodologies
+
+PROJECTS
+
+    Personal Portfolio Website
+        Developed a responsive portfolio website using HTML/CSS, showcasing personal projects and skills.
+        Implemented basic JavaScript functionality for improved user experience.
+
+    Basic Chat Application
+        Created a simple chat application using Python and Flask.
+        Enabled real-time communication with WebSocket integration.
+
+    Todo List Application
+        Built a full-stack todo list application using React for frontend and Node.js for backend.
+        Implemented user authentication and local storage for tasks.
+
+EXTRACURRICULARS
+
+    Member, University Coding Club (2022 - Present)
+    Volunteer, Local Tech Community Workshops (2023)
+
+INTERESTS
+
+    Artificial Intelligence
+    Open Source Contributions
+    Competitive Programming
+"""
+   
+    
+    # Try to get job from database
+    job = db.query(Job).filter_by(id=job_id).first()
+
+    # Job not found in database
+    if not job:
+        return None
+    
+    # Already created analysis
+    if job.analysis:
+        return job.analysis
+    
+    # Create the analysis
+    create_ai_analysis(job.description, RESUME_CONTENT)
+
+    
