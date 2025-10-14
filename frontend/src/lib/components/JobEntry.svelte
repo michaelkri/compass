@@ -1,14 +1,11 @@
-
 <script lang="ts">
-    export let job: any;
-    export let selectedJob: any;
-    export let onclickFunc: () => void;
+    let { job, selectedJob, onclickFunc } = $props();
 </script>
 
 
 <button
     class="job-entry-button mb-1 cursor-pointer hover:bg-accent w-full rounded-lg p-4 text-left {selectedJob?.id === job.id ? 'bg-blue-500 text-white hover:bg-blue-600' : ''}"
-    on:click={onclickFunc}
+    onclick={onclickFunc}
 >
     <div class="mb-3">
         <h3 class="text-base leading-tight font-bold">
