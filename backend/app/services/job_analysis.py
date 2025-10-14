@@ -1,10 +1,10 @@
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
 from ..core.models import Job
-from ..core.schemas import Analysis
+from ..core.schemas import AnalysisSchema
 
 
-def create_ai_analysis(job_description: str, resume_content: str) -> Analysis:
+def create_ai_analysis(job_description: str, resume_content: str) -> AnalysisSchema:
     llm = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
     
     prompt_template = ChatPromptTemplate.from_messages([
@@ -35,7 +35,7 @@ def create_ai_analysis(job_description: str, resume_content: str) -> Analysis:
         ),
     ])
 
-    structured_llm = llm.with_structured_output(schema=Analysis)
+    structured_llm = llm.with_structured_output(schema=AnalysisSchema)
 
     prompt = prompt_template.invoke({
         "job_description": job_description,

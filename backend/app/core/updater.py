@@ -5,7 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from scrapers import ALL_SCRAPERS, IndeedScraper
 from sqlalchemy.orm import Session
 from .db import get_db_session
-from .models import Job, AIAnalysis
+from .models import Job, AIAnalysis, Insight
 from ..services.job_analysis import create_ai_analysis
 
 
@@ -136,6 +136,33 @@ INTERESTS
         return job.analysis
     
     # Create the analysis
-    create_ai_analysis(job.description, RESUME_CONTENT)
+    analysis_schema = create_ai_analysis(job.description, RESUME_CONTENT)
 
-    
+    # Convert generated insights from schemas to ORM models
+    insights = []
+    for insight_schema in analysis_schema.insights_list:
+        insight_model = Insight(
+            title=insight_schema.title,
+            category=insight_schema.category,
+            requirement=insight_schema.requirement,
+            candidate_fact=insight_schema.candidate_fact,
+            summary=insight_schema.summary
+        )
+        insights.append(insight_model)
+
+    # Define the analysis for this job
+    job_analysis = AIAnalysis(
+        candidate_fit_score=analysis_schema.candidate_fit_score,
+        application_summary=analysis_schema.application_summary,
+        top_strengths=analysis_schema.top_strengths,
+        key_gaps=analysis_schema.key_gaps,
+        quick_impact_skills=analysis_schema.quick_impact_skills,
+        insights_list=insights,
+        job_id=job.id
+    )
+
+    db.add(job_analysis)
+    db.commit()
+    db.refresh(job_analysis)
+
+    return job_analysis
