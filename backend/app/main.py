@@ -14,7 +14,7 @@ from core.schemas import JobSchema
 from core.updater import run_update, get_or_create_job_description
 
 
-BASE_DIR = Path(__file__).resolve().parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 scheduler = AsyncIOScheduler()
 
@@ -52,7 +52,7 @@ app = FastAPI(
 
 app.mount(
     "/static",
-    StaticFiles(directory=str(BASE_DIR / "static")),
+    StaticFiles(directory=str(BASE_DIR / "backend" / "app" / "static")),
     name="static"
 )
 
@@ -106,6 +106,15 @@ async def get_job_content(
         raise HTTPException(status_code=404, detail=f"Job with ID {job_id} not found.")
     
     return job
+
+
+# @app.get("{full_path:path}")
+# async def serve_spa(full_path: str):
+#     index_path = BASE_DIR / "frontend" / "build" / "index.html"
+#     if index_path.exists():
+#         return FileResponse(index_path)
+#     else:
+#         return HTMLResponse(content="<h1>Index file not found</h1>", status_code=404)
 
 
 if __name__ == "__main__":

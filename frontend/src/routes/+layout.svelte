@@ -1,6 +1,4 @@
 <script lang="ts">
-	export const prerender = false;
-
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	
