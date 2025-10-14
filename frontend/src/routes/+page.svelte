@@ -1,6 +1,7 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import JobEntry from "$lib/components/JobEntry.svelte";
+    import AnalysisSection from "$lib/components/AnalysisSection.svelte";
 
     let jobs: any[] = [];
     let selectedJob: any = null;
@@ -126,7 +127,7 @@
     </main>
 
     <!-- Column 3 -->
-    <aside class="hidden w-96 bg-white flex flex-col lg:block">
+    <aside class="w-96 bg-white flex flex-col">
         <div
             class="p-4 font-bold border-b border-border flex flex-shrink-0 items-center gap-2"
         >
@@ -147,30 +148,47 @@
             <div class="text-foreground font-semibold">AI Analysis</div>
         </div>
         <div class="overflow-y-auto p-4 space-y-3">
-            <div class="border-border rounded-lg border">
-                <h3
-                    class="flex cursor-pointer items-center justify-between p-4 font-medium"
+            {#if selectedJob}
+            <AnalysisSection
+                title="Key Strengths"
+                color="green"
+                points={[
+                    "Proficiency in C++ and Java.",
+                    "Practical software development experience through multiple projects.",
+                    "Familiarity with Agile development methodologies.",
+                    "Foundational Computer Science knowledge from coursework."
+                ]} />
+            {:else}
+                <div
+                    id="analysis-placeholder"
+                    class="flex h-full flex-col items-center justify-center space-y-4"
                 >
-                    <span>Key Takeaways</span><svg
+                    <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4"
-                        fill="none"
+                        width="48"
+                        height="48"
                         viewBox="0 0 24 24"
+                        fill="none"
                         stroke="currentColor"
                         stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-square-dashed-icon lucide-square-dashed"
+                        ><path d="M5 3a2 2 0 0 0-2 2" /><path
+                            d="M19 3a2 2 0 0 1 2 2"
+                        /><path d="M21 19a2 2 0 0 1-2 2" /><path
+                            d="M5 21a2 2 0 0 1-2-2"
+                        /><path d="M9 3h1" /><path d="M9 21h1" /><path
+                            d="M14 3h1"
+                        /><path d="M14 21h1" /><path d="M3 9v1" /><path
+                            d="M21 9v1"
+                        /><path d="M3 14v1" /><path d="M21 14v1" /></svg
                     >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="m19 9-7 7-7-7"
-                        ></path>
-                    </svg>
-                </h3>
-                <div class="text-muted-foreground px-4 pb-4 text-sm">
-                    This document outlines a three-phase launch strategy focused
-                    on market disruption and user-centered design.
+                    <p class="text-muted-foreground">
+                        Select a job to view AI analysis
+                    </p>
                 </div>
-            </div>
+            {/if}
         </div>
     </aside>
 </div>
