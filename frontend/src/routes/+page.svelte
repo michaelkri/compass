@@ -16,7 +16,15 @@
         const response = await fetch("http://localhost:8000/api/job/" + job.id);
         const data = await response.json();
         selectedJob = data;
-        console.log(selectedJob);
+    }
+
+    async function generateAnalysis(job: any) {
+        const response = await fetch(
+            "http://localhost:8000/api/analysis/" + job.id,
+        );
+        const data = await response.json();
+        console.log(data);
+        return data;
     }
 </script>
 
@@ -154,6 +162,13 @@
         <div class="overflow-y-auto p-4 space-y-3">
             {#if selectedJob == null}
                 <p>Select a job to view AI analysis</p>
+            {:else if selectedJob.analysis == null}
+                <div>
+                    <button
+                        class="bg-blue-500 text-white rounded-md p-4 cursor-pointer"
+                        onclick={() => generateAnalysis(selectedJob)}>Generate Analysis</button
+                    >
+                </div>
             {:else}
                 <AnalysisSection
                     title="Key Strengths"

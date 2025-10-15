@@ -2,18 +2,6 @@ from typing import Annotated, List, Literal, Optional
 from pydantic import BaseModel, ConfigDict, Field
 
 
-class JobSchema(BaseModel):
-    model_config = ConfigDict(from_attributes=True)
-
-    id: int
-    title: str
-    company: str
-    location: str
-    url: str
-    description: str
-    source: str
-
-
 class InsightSchema(BaseModel):
     """A single, actionable insight comparing a job requirement and your resume."""
 
@@ -70,3 +58,17 @@ class AnalysisSchema(BaseModel):
     insights_list: List[InsightSchema] = Field(
         description="A comprehensive list of all generated insights."
     )
+
+
+class JobSchema(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    title: str
+    company: str
+    location: str
+    url: str
+    description: str
+    source: str
+
+    analysis: AnalysisSchema | None
