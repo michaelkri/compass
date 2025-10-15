@@ -28,7 +28,11 @@
         </div>
         <div class="overflow-y-auto p-3">
             {#each jobs as job (job.id)}
-                <JobEntry job={job} selectedJob={selectedJob} onclickFunc={() => selectJob(job)} />
+                <JobEntry
+                    {job}
+                    {selectedJob}
+                    onclickFunc={() => selectJob(job)}
+                />
             {/each}
         </div>
     </aside>
@@ -52,9 +56,9 @@
                         <div
                             class="text-muted-foreground mb-4 flex flex-wrap items-center gap-3 text-sm"
                         >
-                            <span class="job-company">{selectedJob.company}</span><span
-                                >•</span
-                            >
+                            <span class="job-company"
+                                >{selectedJob.company}</span
+                            ><span>•</span>
                             <div class="job-location flex items-center gap-1.5">
                                 <span>{selectedJob.location}</span>
                             </div>
@@ -148,46 +152,19 @@
             <div class="text-foreground font-semibold">AI Analysis</div>
         </div>
         <div class="overflow-y-auto p-4 space-y-3">
-            {#if selectedJob}
-            <AnalysisSection
-                title="Key Strengths"
-                color="green"
-                points={[
-                    "Proficiency in C++ and Java.",
-                    "Practical software development experience through multiple projects.",
-                    "Familiarity with Agile development methodologies.",
-                    "Foundational Computer Science knowledge from coursework."
-                ]} />
+            {#if selectedJob == null}
+                <p>Select a job to view AI analysis</p>
             {:else}
-                <div
-                    id="analysis-placeholder"
-                    class="flex h-full flex-col items-center justify-center space-y-4"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="48"
-                        height="48"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        class="lucide lucide-square-dashed-icon lucide-square-dashed"
-                        ><path d="M5 3a2 2 0 0 0-2 2" /><path
-                            d="M19 3a2 2 0 0 1 2 2"
-                        /><path d="M21 19a2 2 0 0 1-2 2" /><path
-                            d="M5 21a2 2 0 0 1-2-2"
-                        /><path d="M9 3h1" /><path d="M9 21h1" /><path
-                            d="M14 3h1"
-                        /><path d="M14 21h1" /><path d="M3 9v1" /><path
-                            d="M21 9v1"
-                        /><path d="M3 14v1" /><path d="M21 14v1" /></svg
-                    >
-                    <p class="text-muted-foreground">
-                        Select a job to view AI analysis
-                    </p>
-                </div>
+                <AnalysisSection
+                    title="Key Strengths"
+                    color="green"
+                    points={[
+                        "Proficiency in C++ and Java.",
+                        "Practical software development experience through multiple projects.",
+                        "Familiarity with Agile development methodologies.",
+                        "Foundational Computer Science knowledge from coursework.",
+                    ]}
+                />
             {/if}
         </div>
     </aside>

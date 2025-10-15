@@ -6,3 +6,5 @@ apscheduler
 sqlalchemy
 jinja2
 trafilatura
+langchain[core]
+langchain-google-genai

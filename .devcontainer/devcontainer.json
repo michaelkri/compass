@@ -1,0 +1,27 @@
+{
+	"name": "Compass",
+	"build": {
+		"dockerfile": "../Dockerfile",
+		"context": "..",
+		"target": "development"
+	},
+
+	"features": {
+		"ghcr.io/devcontainers/features/node:1": {},
+		"ghcr.io/devcontainers/features/python:1": {}
+	},
+
+	"remoteEnv": {
+		"PYTHONPATH": "${containerWorkspaceFolder}/backend/app"
+	},
+
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.python",
+				"svelte.svelte-vscode"
+			]
+		}
+	},
+	"forwardPorts": [8000, 5173]
+}

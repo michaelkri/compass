@@ -1,7 +1,7 @@
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
-from ..core.models import Job
-from ..core.schemas import AnalysisSchema
+from core.models import Job
+from core.schemas import AnalysisSchema
 
 
 def create_ai_analysis(job_description: str, resume_content: str) -> AnalysisSchema:

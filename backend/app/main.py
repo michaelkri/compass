@@ -10,8 +10,8 @@ from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy.orm import Session
 from core.db import get_db, create_db_tables
 from core.models import Job
-from core.schemas import JobSchema
-from core.updater import run_update, get_or_create_job_description
+from core.schemas import AnalysisSchema, JobSchema
+from core.updater import get_or_create_ai_analysis, run_update, get_or_create_job_description
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -106,6 +106,22 @@ async def get_job_content(
         raise HTTPException(status_code=404, detail=f"Job with ID {job_id} not found.")
     
     return job
+
+
+@app.get("/api/analysis/{job_id}", response_model=AnalysisSchema)
+async def get_job_analysis(
+    job_id: int,
+    db: Session = Depends(get_db)
+):
+    try:
+        analysis = get_or_create_ai_analysis(db, job_id)
+    except Exception as e:
+        raise HTTPException(status_code=503, detail=f"Could not get AI analysis for job with ID {job_id}.")
+
+    if analysis is None:
+        raise HTTPException(status_code=404, detail=f"Job with ID {job_id} not found.")
+    
+    return analysis
 
 
 # @app.get("{full_path:path}")

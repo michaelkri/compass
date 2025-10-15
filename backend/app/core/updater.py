@@ -6,7 +6,7 @@ from scrapers import ALL_SCRAPERS, IndeedScraper
 from sqlalchemy.orm import Session
 from .db import get_db_session
 from .models import Job, AIAnalysis, Insight
-from ..services.job_analysis import create_ai_analysis
+from services.job_analysis import create_ai_analysis
 
 
 @contextmanager
@@ -160,6 +160,9 @@ INTERESTS
         insights_list=insights,
         job_id=job.id
     )
+
+    # Store analysis for future access
+    job.analysis = job_analysis
 
     db.add(job_analysis)
     db.commit()

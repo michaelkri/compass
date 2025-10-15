@@ -1,5 +1,5 @@
 from typing import Annotated, List, Literal, Optional
-from sqlalchemy import Column, ForeignKey, Integer, String, Text
+from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, relationship
 from .db import Base
 
@@ -41,9 +41,9 @@ class AIAnalysis(Base):
 
     candidate_fit_score: int = Column(Integer)
     application_summary: str = Column(String)
-    top_strengths: List[str] = Column(List[String])
-    key_gaps: List[str] = Column(List[String])
-    quick_impact_skills: List[str] = Column(List[String])
-    insights_list: List[Insight]
-
+    top_strengths: List[str] = Column(JSON)
+    key_gaps: List[str] = Column(JSON)
+    quick_impact_skills: List[str] = Column(JSON)
+    
+    insights_list: Mapped["Insight"] = relationship(back_populates="analysis")
     job: Mapped["Job"] = relationship(back_populates="analysis")
