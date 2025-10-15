@@ -166,19 +166,27 @@
                 <div>
                     <button
                         class="bg-blue-500 text-white rounded-md p-4 cursor-pointer"
-                        onclick={() => generateAnalysis(selectedJob)}>Generate Analysis</button
+                        onclick={async () => {
+                            const analysis =
+                                await generateAnalysis(selectedJob);
+                            selectedJob = { ...selectedJob, analysis };
+                        }}>Generate Analysis</button
                     >
                 </div>
             {:else}
+                <h3 class="text-xl font-semibold">Score: {selectedJob.analysis.candidate_fit_score}</h3>
+                <p class="text-sm mb-4">{selectedJob.analysis.application_summary}</p>
+
                 <AnalysisSection
-                    title="Key Strengths"
+                    title="Top Strengths"
                     color="green"
-                    points={[
-                        "Proficiency in C++ and Java.",
-                        "Practical software development experience through multiple projects.",
-                        "Familiarity with Agile development methodologies.",
-                        "Foundational Computer Science knowledge from coursework.",
-                    ]}
+                    points={selectedJob.analysis.top_strengths}
+                />
+
+                <AnalysisSection
+                    title="Key Gaps"
+                    color="red"
+                    points={selectedJob.analysis.key_gaps}
                 />
             {/if}
         </div>
