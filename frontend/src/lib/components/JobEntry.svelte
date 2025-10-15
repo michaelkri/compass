@@ -4,7 +4,7 @@
 
 
 <button
-    class="job-entry-button mb-1 cursor-pointer hover:bg-accent w-full rounded-lg p-4 text-left {selectedJob?.id === job.id ? 'bg-blue-500 text-white hover:bg-blue-600' : ''}"
+    class="job-entry-button mb-1 cursor-pointer hover:bg-accent w-full rounded-lg p-4 text-left {selectedJob?.id === job.id ? 'bg-blue-500 text-white shadow-md hover:bg-blue-600' : ''}"
     onclick={onclickFunc}
 >
     <div class="mb-3">

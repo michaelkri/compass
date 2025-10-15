@@ -4,7 +4,7 @@
     let isCollapsed = $state(true);
 </script>
 
-<div class="border-border bg-background/50 mb-3 rounded-lg border px-4">
+<div class="border-border bg-background shadow-md mb-3 rounded-lg border px-4">
     <div class="flex">
         <button
             type="button"
@@ -65,13 +65,6 @@
     <div role="region" class="overflow-hidden text-sm">
         {#if !isCollapsed}
             {@render children?.()}
-            <!-- {#each points as point}
-                <div
-                    class="mb-2 last:mb-4 rounded-lg border border-{color}-200/50 bg-{color}-50/50 p-3 dark:border-{color}-900/30 dark:bg-{color}-950/20"
-                >
-                    <span class="text-foreground/90 text-sm">{point}</span>
-                </div>
-            {/each} -->
         {/if}
     </div>
 </div>
