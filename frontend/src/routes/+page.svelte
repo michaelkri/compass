@@ -2,6 +2,8 @@
     import { onMount } from "svelte";
     import JobEntry from "$lib/components/JobEntry.svelte";
     import AnalysisSection from "$lib/components/AnalysisSection.svelte";
+    import AnalysisPoint from "$lib/components/AnalysisPoint.svelte";
+    import AnalysisInsight from "$lib/components/AnalysisInsight.svelte";
 
     let jobs: any[] = [];
     let selectedJob: any = null;
@@ -174,20 +176,30 @@
                     >
                 </div>
             {:else}
-                <h3 class="text-xl font-semibold">Score: {selectedJob.analysis.candidate_fit_score}</h3>
-                <p class="text-sm mb-4">{selectedJob.analysis.application_summary}</p>
+                <h3 class="text-xl font-semibold">
+                    Score: {selectedJob.analysis.candidate_fit_score}
+                </h3>
+                <p class="text-sm mb-4">
+                    {selectedJob.analysis.application_summary}
+                </p>
 
-                <AnalysisSection
-                    title="Top Strengths"
-                    color="green"
-                    points={selectedJob.analysis.top_strengths}
-                />
+                <AnalysisSection title="Top Strengths">
+                    {#each selectedJob.analysis.top_strengths as strength}
+                        <AnalysisPoint color="green" point={strength} />
+                    {/each}
+                </AnalysisSection>
 
-                <AnalysisSection
-                    title="Key Gaps"
-                    color="red"
-                    points={selectedJob.analysis.key_gaps}
-                />
+                <AnalysisSection title="Key Gaps">
+                    {#each selectedJob.analysis.key_gaps as gap}
+                        <AnalysisPoint color="red" point={gap} />
+                    {/each}
+                </AnalysisSection>
+
+                <AnalysisSection title="Insights">
+                    {#each selectedJob.analysis.insights_list as insight}
+                        <AnalysisInsight {...insight} />
+                    {/each}
+                </AnalysisSection>
             {/if}
         </div>
     </aside>
