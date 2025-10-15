@@ -8,6 +8,8 @@ from pathlib import Path
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy.orm import Session
+import os
+from dotenv import load_dotenv
 from core.db import get_db, create_db_tables
 from core.models import Job
 from core.schemas import AnalysisSchema, JobSchema
@@ -21,6 +23,8 @@ scheduler = AsyncIOScheduler()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    load_dotenv()
+
     create_db_tables()
 
     try:

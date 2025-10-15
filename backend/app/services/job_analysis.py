@@ -44,4 +44,9 @@ def create_ai_analysis(job_description: str, resume_content: str) -> AnalysisSch
 
     llm_analysis = structured_llm.invoke(prompt)
 
+    # import pickle
+
+    # with open("mock_llm.pkl", "rb") as f:
+    #     llm_analysis = pickle.load(f)
+
     return llm_analysis

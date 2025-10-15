@@ -45,5 +45,5 @@ class AIAnalysis(Base):
     key_gaps: List[str] = Column(JSON)
     quick_impact_skills: List[str] = Column(JSON)
     
-    insights_list: Mapped["Insight"] = relationship(back_populates="analysis")
+    insights_list: Mapped[List["Insight"]] = relationship(back_populates="analysis")
     job: Mapped["Job"] = relationship(back_populates="analysis")

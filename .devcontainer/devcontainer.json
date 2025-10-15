@@ -1,5 +1,5 @@
 {
-	"name": "Compass",
+	"name": "My FastAPI Svelte Project",
 	"build": {
 		"dockerfile": "../Dockerfile",
 		"context": "..",
@@ -11,8 +11,12 @@
 		"ghcr.io/devcontainers/features/python:1": {}
 	},
 
+	"workspaceFolder": "/app",
+
+	"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind,consistency=cached",
+
 	"remoteEnv": {
-		"PYTHONPATH": "${containerWorkspaceFolder}/backend/app"
+		"PYTHONPATH": "${containerWorkspaceFolder}/backend"
 	},
 
 	"customizations": {

@@ -17,6 +17,8 @@ class JobSchema(BaseModel):
 class InsightSchema(BaseModel):
     """A single, actionable insight comparing a job requirement and your resume."""
 
+    model_config = ConfigDict(from_attributes=True)
+
     title: str = Field(
         description="Title for this insight"
     )
@@ -42,6 +44,8 @@ class InsightSchema(BaseModel):
 class AnalysisSchema(BaseModel):
     """A comprehensive analysis of how your resume aligns with this job, 
     with actionable advice to improve your application."""
+
+    model_config = ConfigDict(from_attributes=True)
 
     candidate_fit_score: Annotated[int, Field(ge=0, le=100)] = Field(
         description="A score from 0 to 100 representing the overall fit of the candidate for the job."

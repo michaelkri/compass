@@ -2,8 +2,8 @@ from contextlib import contextmanager
 from typing import Optional
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from scrapers import ALL_SCRAPERS, IndeedScraper
 from sqlalchemy.orm import Session
+from scrapers import ALL_SCRAPERS, IndeedScraper
 from .db import get_db_session
 from .models import Job, AIAnalysis, Insight
 from services.job_analysis import create_ai_analysis
