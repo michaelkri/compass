@@ -72,3 +72,12 @@ class JobSchema(BaseModel):
     source: str
 
     analysis: AnalysisSchema | None
+
+
+class JobCreate(BaseModel):
+    title: str
+    company: str
+    location: str
+    url: str
+    description: str
+    source: str

@@ -35,7 +35,51 @@
     <!-- Column 1 -->
     <aside class="w-80 bg-white border-r border-border flex flex-col">
         <div class="p-4 font-bold border-b border-border">
-            <div class="font-semibold">Jobs</div>
+            <div class="flex justify-between items-center">
+                <div class="font-semibold">Jobs</div>
+                <div>
+                    <button
+                        class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200"
+                        aria-label="Add Job"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-plus-icon lucide-plus h-4 w-4"
+                            ><path d="M5 12h14" /><path d="M12 5v14" /></svg
+                        >
+                    </button>
+                    <button
+                        class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200"
+                        aria-label="Refresh Jobs"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            class="lucide lucide-refresh-cw-icon lucide-refresh-cw h-4 w-4"
+                            ><path
+                                d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
+                            /><path d="M21 3v5h-5" /><path
+                                d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
+                            /><path d="M8 16H3v5" /></svg
+                        >
+                    </button>
+                </div>
+            </div>
         </div>
         <div class="overflow-y-auto p-3">
             {#each jobs as job (job.id)}
@@ -168,7 +212,7 @@
             {:else if selectedJob.analysis == null}
                 <div class="flex h-48 w-full items-center justify-center">
                     <button
-                        class="cursor-pointer group relative inline-flex items-center justify-center rounded-lg border border-slate-900/10 bg-white/40 px-8 py-3 font-medium text-slate-800 backdrop-blur-md transition-all duration-300 hover:bg-white/60"
+                        class="cursor-pointer group relative inline-flex items-center justify-center rounded-lg border border-slate-900/10 bg-white/40 px-8 py-3 font-medium text-slate-800 backdrop-blur-md transition-all duration-300 hover:bg-gradient-to-r from-blue-600 to-purple-600 hover:text-white"
                         onclick={async () => {
                             const analysis =
                                 await generateAnalysis(selectedJob);

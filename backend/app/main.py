@@ -12,7 +12,7 @@ import os
 from dotenv import load_dotenv
 from core.db import get_db, create_db_tables
 from core.models import Job
-from core.schemas import AnalysisSchema, JobSchema
+from core.schemas import AnalysisSchema, JobCreate, JobSchema
 from core.updater import get_or_create_ai_analysis, run_update, get_or_create_job_description
 
 
@@ -97,6 +97,21 @@ async def read_jobs(
     return {
         "jobs": jobs
     }
+
+
+@app.post("/api/job/create")
+async def create_job(
+    job: JobCreate,
+    db: Session = Depends(get_db)
+):
+    try:
+        # Add to database
+        job_model = Job(**job.model_dump())
+        db.add(job_model)
+        db.commit()
+        return { "added": True }
+    except Exception as e:
+        return { "added": False }
 
 
 @app.get("/api/job/{job_id}", response_model=JobSchema)
