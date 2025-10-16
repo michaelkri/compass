@@ -1,10 +1,26 @@
+from pathlib import Path
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
-from core.models import Job
+from langchain_community.document_loaders import PyPDFLoader
 from core.schemas import AnalysisSchema
 
 
-def create_ai_analysis(job_description: str, resume_content: str) -> AnalysisSchema:
+def _load_resume(base_dir: Path) -> str:
+    FILE_PATH = "backend/data/resume.pdf"
+
+    loader = PyPDFLoader(base_dir / FILE_PATH)
+    docs = loader.load()
+
+    return docs[0].page_content
+
+
+def create_ai_analysis(job_description: str, base_dir: Path) -> AnalysisSchema:
+    try:
+        resume_content = _load_resume(base_dir)
+    except Exception as e:
+        print(f"Could not read resume.")
+        raise e
+
     llm = init_chat_model("gemini-2.5-flash", model_provider="google_genai")
     
     prompt_template = ChatPromptTemplate.from_messages([

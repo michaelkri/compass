@@ -118,7 +118,7 @@ async def get_job_analysis(
     db: Session = Depends(get_db)
 ):
     try:
-        analysis = get_or_create_ai_analysis(db, job_id)
+        analysis = get_or_create_ai_analysis(db, job_id, BASE_DIR)
     except Exception as e:
         raise HTTPException(status_code=503, detail=f"Could not get AI analysis for job with ID {job_id}.")
 
