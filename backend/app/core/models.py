@@ -25,7 +25,7 @@ class Insight(Base):
     analysis_id: int = Column(Integer, ForeignKey("analysis.id"))
 
     title: str = Column(String)
-    category: Literal["Match", "Missing", "Partial", "Exceeding", "Quick Learn"] = Column(String)
+    category: Literal["Match", "Missing", "Partial", "Quick Learn"] = Column(String)
     requirement: str = Column(String)
     candidate_fact: Optional[str] = Column(String, nullable=True)
     summary: str = Column(String)
@@ -43,7 +43,7 @@ class AIAnalysis(Base):
     application_summary: str = Column(String)
     top_strengths: List[str] = Column(JSON)
     key_gaps: List[str] = Column(JSON)
-    quick_impact_skills: List[str] = Column(JSON)
+    possible_questions: List[str] = Column(JSON)
     
     insights_list: Mapped[List["Insight"]] = relationship(back_populates="analysis")
     job: Mapped["Job"] = relationship(back_populates="analysis")

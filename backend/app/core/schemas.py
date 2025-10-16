@@ -11,8 +11,8 @@ class InsightSchema(BaseModel):
         description="Title for this insight"
     )
 
-    category: Literal["Match", "Missing", "Partial", "Exceeding", "Quick Learn"] = Field(
-        description="The type of comparison: 'Match', 'Missing', 'Partial', 'Exceeding', or 'Quick Learn' (for a highly beneficial, easy-to-acquire skill)."
+    category: Literal["Match", "Missing", "Partial", "Quick Learn"] = Field(
+        description="The type of comparison: 'Match', 'Missing', 'Partial', or 'Quick Learn' (for a highly beneficial, easy-to-acquire skill)."
     )
 
     requirement: str = Field(
@@ -51,8 +51,8 @@ class AnalysisSchema(BaseModel):
         description="3-5 critical areas where the candidate is missing a core requirement."
     )
 
-    quick_impact_skills: List[str] = Field(
-        description="A list of 1-3 suggested skills that represent low-effort, high-value additions to the candidate's skillset (e.g., 'Docker basics', 'Jira workflow'). Learning these could make them a stronger candidate for this role and future opportunities in their field. Focus on things learnable in 20 hours or less."
+    possible_questions: List[str] = Field(
+        description="3-5 possible interview questions the candidate may be asked on."
     )
 
     insights_list: List[InsightSchema] = Field(

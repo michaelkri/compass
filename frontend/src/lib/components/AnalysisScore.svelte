@@ -3,24 +3,24 @@
 
     let textColor, barColor;
     if (score >= 85) {
-        textColor = "text-emerald-700";
-        barColor = "bg-emerald-600";
+        textColor = "text-emerald-900";
+        barColor = "bg-emerald-800";
     }
     else if (score >= 70) {
         textColor = "text-green-700";
         barColor = "bg-green-600";
     }
     else if (score >= 50) {
-        textColor = "text-sky-700";
-        barColor = "bg-sky-600";
-    }
-    else if (score >= 25) {
-        textColor = "text-amber-700";
+        textColor = "text-amber-600";
         barColor = "bg-amber-500";
     }
+    else if (score >= 25) {
+        textColor = "text-amber-800";
+        barColor = "bg-amber-700";
+    }
     else {
-        textColor = "text-red-700";
-        barColor = "bg-red-600";
+        textColor = "text-red-800";
+        barColor = "bg-red-700";
     }
 </script>
 

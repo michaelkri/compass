@@ -213,6 +213,12 @@
                     {/each}
                 </AnalysisSection>
 
+                <AnalysisSection title="Possible Interview Questions">
+                    {#each selectedJob.analysis.possible_questions as question}
+                        <AnalysisPoint color="yellow" point={question} />
+                    {/each}
+                </AnalysisSection>
+
                 <AnalysisSection title="Insights">
                     {#each selectedJob.analysis.insights_list as insight}
                         <AnalysisInsight {...insight} />

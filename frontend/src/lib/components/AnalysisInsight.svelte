@@ -14,9 +14,6 @@
         case "Partial":
             backgroundColor = "bg-amber-700";
             break;
-        case "Exceeding":
-            backgroundColor = "bg-blue-700";
-            break;
         case "Quick Learn":
             backgroundColor = "bg-indigo-700";
             break;

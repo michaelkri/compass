@@ -102,7 +102,7 @@ def get_or_create_ai_analysis(db: Session, job_id: int, base_dir: Path) -> Optio
         application_summary=analysis_schema.application_summary,
         top_strengths=analysis_schema.top_strengths,
         key_gaps=analysis_schema.key_gaps,
-        quick_impact_skills=analysis_schema.quick_impact_skills,
+        possible_questions=analysis_schema.possible_questions,
         insights_list=insights,
         job_id=job.id
     )
