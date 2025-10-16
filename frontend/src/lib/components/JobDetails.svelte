@@ -3,7 +3,7 @@
 </script>
 
 <div id="job-details" class="mx-auto max-w-3xl">
-    <div class="border-border mb-8 border-b pb-6">
+    <div class="border-border mb-8 border-b pb-6 dark:border-gray-200">
         <div class="mb-4 flex items-start justify-between gap-4">
             <h1 class="job-title text-foreground flex-1 text-2xl font-bold">
                 {title}
@@ -47,7 +47,7 @@
             <span class="font-semibold">View Source</span>
         </a>
     </div>
-    <div class="job-description prose max-w-none">
+    <div class="job-description prose max-w-none dark:text-gray-200">
         <p>{@html description}</p>
     </div>
 </div>

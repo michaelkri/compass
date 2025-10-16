@@ -25,24 +25,28 @@
     }
 
     async function generateAnalysis(job: any) {
+        isGenerating = true;
         const response = await fetch(
             "http://localhost:8000/api/analysis/" + job.id,
         );
         const data = await response.json();
         console.log(data);
+        isGenerating = false;
         return data;
     }
 </script>
 
 <div class="flex h-screen">
     <!-- Column 1 -->
-    <aside class="w-80 bg-white border-r border-border flex flex-col">
-        <div class="p-4 font-bold border-b border-border">
+    <aside
+        class="w-80 bg-white border-r border-border flex flex-col dark:text-white dark:bg-gray-900 dark:border-gray-600"
+    >
+        <div class="p-4 font-bold border-b border-border dark:border-gray-600">
             <div class="flex justify-between items-center">
                 <div class="font-semibold">Jobs</div>
                 <div>
                     <button
-                        class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200"
+                        class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
                         aria-label="Add Job"
                     >
                         <svg
@@ -60,7 +64,7 @@
                         >
                     </button>
                     <button
-                        class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200"
+                        class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
                         aria-label="Refresh Jobs"
                     >
                         <svg
@@ -96,7 +100,9 @@
     </aside>
 
     <!-- Column 2 -->
-    <main class="bg-white border-r border-border flex flex-col flex-1">
+    <main
+        class="bg-white border-r border-border flex flex-col flex-1 dark:bg-gray-900 dark:text-white dark:border-gray-600"
+    >
         <div class="overflow-y-auto p-8">
             {#if selectedJob}
                 <JobDetails {...selectedJob} />
@@ -135,9 +141,9 @@
     </main>
 
     <!-- Column 3 -->
-    <aside class="w-96 bg-white flex flex-col">
+    <aside class="w-96 bg-white flex flex-col dark:bg-gray-900 dark:text-white">
         <div
-            class="p-4 font-bold border-b border-border flex flex-shrink-0 items-center gap-2"
+            class="p-4 font-bold border-b border-border flex flex-shrink-0 items-center gap-2 dark:border-gray-600"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -161,13 +167,13 @@
             {:else if selectedJob.analysis == null}
                 <div class="flex h-48 w-full items-center justify-center">
                     <button
-                        class="cursor-pointer group relative inline-flex items-center justify-center rounded-lg border border-slate-900/10 bg-white/40 px-8 py-3 font-medium text-slate-800 backdrop-blur-md transition-all duration-300 hover:bg-gradient-to-r from-blue-600 to-purple-600 hover:text-white"
+                        class="cursor-pointer group relative inline-flex items-center justify-center rounded-lg border border-slate-900/10 bg-white/40 px-8 py-3 font-medium text-slate-800 backdrop-blur-md transition-all duration-300 hover:bg-gradient-to-r from-blue-600 to-purple-600 hover:text-white dark:text-white dark:bg-gray-800 disabled:cursor-not-allowed disabled:bg-gradient-to-r disabled:text-white animate-gradient"
                         onclick={async () => {
-                            isGenerating = true;
-                            const analysis = await generateAnalysis(selectedJob);
+                            const analysis =
+                                await generateAnalysis(selectedJob);
                             selectedJob = { ...selectedJob, analysis };
-                            isGenerating = false;
                         }}
+                        disabled={isGenerating}
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -188,9 +194,9 @@
 
                         <span>
                             {#if !isGenerating}
-                            Generate Analysis
+                                Generate Analysis
                             {:else}
-                            Generating Analysis...
+                                Generating Analysis...
                             {/if}
                         </span>
                     </button>
@@ -228,3 +234,22 @@
         </div>
     </aside>
 </div>
+
+<style>
+    .animate-gradient {
+        background-size: 300%;
+        animation: animatedgradient 6s ease infinite alternate;
+    }
+
+    @keyframes animatedgradient {
+        0% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+        100% {
+            background-position: 0% 50%;
+        }
+    }
+</style>

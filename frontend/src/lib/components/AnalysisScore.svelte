@@ -24,11 +24,11 @@
     }
 </script>
 
-<div class="p-5 bg-white rounded-lg shadow-md border border-slate-200">
+<div class="p-5 bg-white rounded-lg shadow-md border border-slate-200 dark:bg-gray-800 dark:border-gray-600">
     <div class="flex justify-between items-baseline">
-        <h2 class="text-lg font-bold text-slate-800">Overall Score</h2>
+        <h2 class="text-lg font-bold text-slate-800 dark:text-gray-100">Overall Score</h2>
         <span class="text-3xl font-bold {textColor}"
-            >{score}<span class="text-lg text-slate-500">/100</span></span
+            >{score}<span class="text-lg text-slate-500 dark:text-gray-200">/100</span></span
         >
     </div>
 
@@ -37,7 +37,7 @@
     </div>
 
     <div class="mt-4">
-        <p class="mt-1 text-md text-slate-600">
+        <p class="mt-1 text-md text-slate-600 dark:text-gray-200">
             {summary}
         </p>
     </div>

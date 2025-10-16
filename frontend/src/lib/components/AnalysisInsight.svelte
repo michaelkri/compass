@@ -43,26 +43,26 @@
     <p class="mt-2">{summary}</p>
 </div> -->
 
-<div class="rounded-lg shadow-md border border-slate-200 overflow-hidden mb-4">
+<div class="rounded-lg shadow-md border border-slate-200 overflow-hidden mb-4 dark:border-gray-600">
     <div class="p-4 text-white rounded-t-lg {backgroundColor}">
         <h1 class="text-lg font-bold">{title}</h1>
         <p class="text-sm font-light">{category}</p>
     </div>
 
-    <div class="p-4 bg-white">
+    <div class="p-4 bg-white dark:bg-gray-800">
         <div>
-            <h3 class="font-semibold text-gray-800">Summary</h3>
-            <p class="text-sm text-gray-700">
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200">Summary</h3>
+            <p class="text-sm text-gray-700 dark:text-gray-100">
                 {summary}
             </p>
         </div>
 
         <div class="mt-4">
-            <h3 class="font-semibold text-gray-800">Requirement</h3>
+            <h3 class="font-semibold text-gray-800 dark:text-gray-200">Requirement</h3>
             <blockquote
                 class="mt-1 pl-3 text-sm italic border-l-4 border-gray-300"
             >
-                <p class="text-gray-700">
+                <p class="text-gray-700 dark:text-gray-100">
                     "{requirement}"
                 </p>
             </blockquote>
@@ -70,11 +70,11 @@
 
         {#if candidate_fact !== null}
             <div class="mt-4">
-                <h3 class="font-semibold text-gray-800">Actual</h3>
+                <h3 class="font-semibold text-gray-800 dark:text-gray-200">Actual</h3>
                 <blockquote
                     class="mt-1 pl-3 text-sm italic border-l-4 border-gray-300"
                 >
-                    <p class="text-gray-700">
+                    <p class="text-gray-700 dark:text-gray-100">
                         "{candidate_fact}"
                     </p>
                 </blockquote>
