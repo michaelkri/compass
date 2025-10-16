@@ -9,6 +9,9 @@
         description: ""
     });
 
+    let created = $state(false)
+    let failed = $state(false)
+
     async function submitJob() {
         const response = await fetch("http://localhost:8000/api/job/create", {
             method: "POST",
@@ -25,7 +28,12 @@
         }
 
         const responseData = await response.json();
-        console.log(responseData)
+        if (responseData.added == true) {
+            created = true;
+        }
+        else {
+            failed = true;
+        }
     }
 </script>
 
@@ -35,11 +43,15 @@
             <h2 class="text-xl font-bold text-gray-900 dark:text-white">
                 Add a new job
             </h2>
-            <span class="text-gray-700"
+            <span class="text-gray-700 dark:text-gray-400"
                 >Use this page to add custom jobs which weren't scraped
                 automatically.</span
             >
+            {#if failed}
+            <p class="text-red-700 mt-4 font-black">Job creation failed.</p>
+            {/if}
         </div>
+        {#if !created}
         <form action="#">
             <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                 <div class="sm:col-span-2">
@@ -53,7 +65,6 @@
                         name="title"
                         id="title"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Job title"
                         bind:value={data.title}
                     />
                 </div>
@@ -68,7 +79,6 @@
                         name="company"
                         id="company"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Company"
                         bind:value={data.company}
                     />
                 </div>
@@ -83,7 +93,6 @@
                         name="location"
                         id="location"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="City"
                         bind:value={data.location}
                     />
                 </div>
@@ -114,7 +123,6 @@
                         name="url"
                         id="url"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="https://il.indeed.com/viewjob?jk=..."
                         bind:value={data.url}
                     />
                 </div>
@@ -128,7 +136,6 @@
                         id="description"
                         rows="8"
                         class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                        placeholder="Job description"
                         bind:value={data.description}
                     ></textarea>
                 </div>
@@ -141,5 +148,9 @@
                 Add Job
             </button>
         </form>
+        {:else}
+        <p>Successfully added job.</p>
+        <button onclick={() => created = false} class="cursor-pointer underline text-blue-500">Create Another</button>
+        {/if}
     </div>
 </section>
