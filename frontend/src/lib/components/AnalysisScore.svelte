@@ -24,7 +24,8 @@
     }
 </script>
 
-<div class="p-5 bg-white rounded-lg shadow-md border border-slate-200 dark:bg-gray-800 dark:border-gray-600">
+<!-- <div class="p-5 bg-white rounded-lg shadow-md border border-slate-200 dark:bg-gray-800 dark:border-gray-600"> -->
+<div class="p-2">
     <div class="flex justify-between items-baseline">
         <h2 class="text-lg font-bold text-slate-800 dark:text-gray-100">Overall Score</h2>
         <span class="text-3xl font-bold {textColor}"

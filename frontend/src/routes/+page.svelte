@@ -36,7 +36,7 @@
     }
 </script>
 
-<div class="flex h-screen">
+<div class="flex flex-grow overflow-y-auto">
     <!-- Column 1 -->
     <aside
         class="w-80 bg-white border-r border-border flex flex-col dark:text-white dark:bg-gray-900 dark:border-gray-600"
@@ -112,7 +112,7 @@
             {:else}
                 <div
                     id="job-details-placeholder"
-                    class="flex h-full flex-col items-center justify-center space-y-4"
+                    class="flex h-full flex-col items-center justify-center space-y-4 p-16"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

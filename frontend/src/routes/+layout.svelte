@@ -1,6 +1,7 @@
 <script lang="ts">
 	import '$lib/app.css';
 	import favicon from '$lib/assets/favicon.svg';
+    import TopBar from '$lib/components/TopBar.svelte';
 	
 	let { children } = $props();
 </script>
@@ -23,4 +24,7 @@
 	</style>
 </svelte:head>
 
-{@render children?.()}
+<div class="flex flex-col h-screen">
+	<TopBar />
+	{@render children?.()}
+</div>
