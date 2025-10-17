@@ -13,7 +13,7 @@ from dotenv import load_dotenv
 from core.db import get_db, create_db_tables
 from core.models import Job
 from core.schemas import AnalysisSchema, JobCreate, JobSchema
-from core.updater import get_or_create_ai_analysis, run_update, get_or_create_job_description
+from core.updater import get_or_create_ai_analysis, scrape_jobs, get_or_create_job_description
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -97,6 +97,14 @@ async def read_jobs(
     return {
         "jobs": jobs
     }
+
+
+@app.get("/api/update")
+async def update_jobs(
+    db: Session = Depends(get_db)
+):
+    scrape_jobs(db)
+    return { "updated": True }
 
 
 @app.post("/api/job/create")

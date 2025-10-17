@@ -11,7 +11,7 @@ from services.job_analysis import create_ai_analysis
 
 
 @contextmanager
-def create_webdriver():
+def _create_webdriver():
     chrome_options = Options()
 
     # chrome_options.add_argument("--headless")
@@ -26,18 +26,20 @@ def create_webdriver():
         driver.quit()
 
 
-def run_update() -> None:
-    with create_webdriver() as driver:
+def scrape_jobs(db: Session) -> None:
+    with _create_webdriver() as driver:
         for scraper in ALL_SCRAPERS:
-            scpr = scraper("student software", "israel")
-            with get_db_session() as db:
-                for job in scpr.fetch_jobs(driver):
+            current_scraper = scraper("student software", "israel")
+            for job in current_scraper.fetch_jobs(driver):
+                try:
                     db.add(job)
                     db.commit()
+                except Exception as e:
+                    print(f"Failed to add scraped job: {e.args}")
 
 
 def fetch_job_description(job_source: str, job_url: str) -> Optional[str]:
-    with create_webdriver() as driver:
+    with _create_webdriver() as driver:
         if job_source == "Indeed":
             return IndeedScraper.fetch_description(job_url, driver)
     

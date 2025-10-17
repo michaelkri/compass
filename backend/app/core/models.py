@@ -11,7 +11,7 @@ class Job(Base):
     title: str = Column(Text)
     company: str = Column(Text)
     location: str = Column(Text)
-    url: str = Column(Text)
+    url: str = Column(Text, unique=True)
     description: str = Column(Text, nullable=True)
     source: str = Column(Text)
     

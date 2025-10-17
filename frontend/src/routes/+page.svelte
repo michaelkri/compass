@@ -44,8 +44,9 @@
         <div class="p-4 font-bold border-b border-border dark:border-gray-600">
             <div class="flex justify-between items-center">
                 <div class="font-semibold">Jobs</div>
-                <div>
-                    <button
+                <div class="flex space-x-1">
+                    <a
+                        href="/create"
                         class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
                         aria-label="Add Job"
                     >
@@ -62,8 +63,10 @@
                             class="lucide lucide-plus-icon lucide-plus h-4 w-4"
                             ><path d="M5 12h14" /><path d="M12 5v14" /></svg
                         >
-                    </button>
-                    <button
+                    </a>
+                    <a
+                        onclick={async () => await fetch("http://localhost:8000/api/update")}
+                        href="/#"
                         class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
                         aria-label="Refresh Jobs"
                     >
@@ -84,7 +87,7 @@
                                 d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
                             /><path d="M8 16H3v5" /></svg
                         >
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
