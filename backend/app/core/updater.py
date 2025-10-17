@@ -28,6 +28,8 @@ def _create_webdriver():
 
 
 def scrape_jobs(db: Session) -> None:
+    added_count = 0
+
     with _create_webdriver() as driver:
         for scraper in ALL_SCRAPERS:
             current_scraper = scraper("student software", "israel")
@@ -35,8 +37,11 @@ def scrape_jobs(db: Session) -> None:
                 try:
                     db.add(job)
                     db.commit()
+                    added_count += 1
                 except Exception as e:
                     print(f"Failed to add scraped job: {e.args}")
+
+    return added_count
 
 
 def fetch_job_description(job_source: str, job_url: str) -> Optional[str]:

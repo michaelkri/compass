@@ -13,26 +13,27 @@
     let failed = $state(false)
 
     async function submitJob() {
-        const response = await fetch("http://localhost:8000/api/job/create", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
+        try {
+            const response = await fetch("http://localhost:8000/api/jobs", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            console.error("Server responded with validation errors:", errorData);
-            throw new Error("Request failed with status " + response.status);
+            if (response.status === 201) {
+                const responseData = await response.json();
+                created = true;
+                failed = false;
+            }
+            else {
+                console.log(response.status);
+                failed = true;
+            }
         }
-
-        const responseData = await response.json();
-        if (responseData.added == true) {
-            created = true;
-        }
-        else {
-            failed = true;
+        catch (error) {
+            console.error(error);
         }
     }
 </script>

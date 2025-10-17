@@ -13,26 +13,74 @@
     let isGenerating = $state(false);
 
     onMount(async () => {
-        const response = await fetch("http://localhost:8000/api/jobs");
-        const data = await response.json();
-        jobs = data.jobs;
+        try {
+            const response = await fetch("http://localhost:8000/api/jobs");
+            
+            if (response.status === 200) {
+                const data = await response.json();
+                jobs = data.jobs;
+            }
+            else {
+                console.log(response.status);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
     });
 
     async function selectJob(job: any) {
-        const response = await fetch("http://localhost:8000/api/job/" + job.id);
-        const data = await response.json();
-        selectedJob = data;
+        try {
+            const response = await fetch("http://localhost:8000/api/jobs/" + job.id);
+
+            if (response.status === 200) {
+                const data = await response.json();
+                selectedJob = data;
+            }
+            else {
+                console.log(response.status);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 
     async function generateAnalysis(job: any) {
         isGenerating = true;
-        const response = await fetch(
-            "http://localhost:8000/api/analysis/" + job.id,
-        );
-        const data = await response.json();
-        console.log(data);
-        isGenerating = false;
-        return data;
+
+        try {
+            const response = await fetch("http://localhost:8000/api/analysis/" + job.id);
+            
+            if (response.status === 200) {
+                const data = await response.json();
+                return data;
+            }
+            else {
+                console.log(response.status);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
+        finally {
+            isGenerating = false;
+        }
+    }
+
+    async function updateJobs() {
+        try {
+            const response = await fetch("http://localhost:8000/api/jobs/update", {
+                method: "POST"
+            });
+            
+            if (response.status !== 200) {
+                console.log(response.status);
+            }
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
 </script>
 
@@ -65,7 +113,7 @@
                         >
                     </a>
                     <a
-                        onclick={async () => await fetch("http://localhost:8000/api/update")}
+                        onclick={async () => updateJobs()}
                         href="/#"
                         class="p-1 border-border border-1 rounded-lg cursor-pointer hover:bg-gray-200 dark:hover:bg-gray-800"
                         aria-label="Refresh Jobs"

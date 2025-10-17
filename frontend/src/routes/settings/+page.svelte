@@ -8,9 +8,14 @@
     let searchTerms: any[] = $state([]);
 
     onMount(async () => {
-        const response = await fetch(url);
-        const data = await response.json();
-        searchTerms = data.terms;
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+            searchTerms = data.terms;
+        }
+        catch (error) {
+            console.error(error);
+        }
     });
 
     async function createSearchTerm() {
@@ -59,7 +64,7 @@
             }
         }
         catch (error) {
-            console.log(error);
+            console.error(error);
         }
     }
 </script>

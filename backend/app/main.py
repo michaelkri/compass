@@ -88,6 +88,17 @@ app.add_middleware(
 #     )
 
 
+@app.post("/api/jobs/update", status_code=200)
+async def update_jobs(
+    db: Session = Depends(get_db)
+):
+    added_count = scrape_jobs(db)
+    return {
+        "status": "success",
+        "new_items_count": added_count
+    }
+
+
 @app.get("/api/jobs")
 async def read_jobs(
     db: Session = Depends(get_db)
@@ -99,29 +110,18 @@ async def read_jobs(
     }
 
 
-@app.get("/api/update")
-async def update_jobs(
-    db: Session = Depends(get_db)
-):
-    scrape_jobs(db)
-    return { "updated": True }
-
-
-@app.post("/api/job/create")
+@app.post("/api/jobs", response_model=JobSchema, status_code=201)
 async def create_job(
     job: JobCreate,
     db: Session = Depends(get_db)
 ):
-    try:
-        new_job = Job(**job.model_dump())
-        db.add(new_job)
-        db.commit()
-        return { "added": True }
-    except Exception as e:
-        return { "added": False }
+    new_job = Job(**job.model_dump())
+    db.add(new_job)
+    db.commit()
+    return new_job
 
 
-@app.get("/api/job/{job_id}", response_model=JobSchema)
+@app.get("/api/jobs/{job_id}", response_model=JobSchema)
 async def get_job_content(
     job_id: int,
     db: Session = Depends(get_db)
