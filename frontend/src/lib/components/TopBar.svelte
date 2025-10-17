@@ -21,7 +21,7 @@
         </div>
     </a>
 
-    <button class="p-2 cursor-pointer rounded-md hover:bg-slate-700" aria-label="Settings">
+    <button class="p-2 cursor-pointer rounded-md hover:bg-gray-200 dark:hover:bg-gray-950" aria-label="Settings">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"

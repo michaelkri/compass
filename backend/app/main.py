@@ -1,5 +1,5 @@
 from contextlib import asynccontextmanager
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
@@ -11,8 +11,8 @@ from sqlalchemy.orm import Session
 import os
 from dotenv import load_dotenv
 from core.db import get_db, create_db_tables
-from core.models import Job
-from core.schemas import AnalysisSchema, JobCreate, JobSchema
+from core.models import Job, SearchTerm
+from core.schemas import AnalysisSchema, JobCreate, JobSchema, SearchTermCreate, SearchTermSchema
 from core.updater import get_or_create_ai_analysis, scrape_jobs, get_or_create_job_description
 
 
@@ -92,7 +92,7 @@ app.add_middleware(
 async def read_jobs(
     db: Session = Depends(get_db)
 ):
-    jobs = db.query(Job).limit(50).all()
+    jobs = db.query(Job).all()
 
     return {
         "jobs": jobs
@@ -113,9 +113,8 @@ async def create_job(
     db: Session = Depends(get_db)
 ):
     try:
-        # Add to database
-        job_model = Job(**job.model_dump())
-        db.add(job_model)
+        new_job = Job(**job.model_dump())
+        db.add(new_job)
         db.commit()
         return { "added": True }
     except Exception as e:
@@ -149,6 +148,39 @@ async def get_job_analysis(
         raise HTTPException(status_code=404, detail=f"Job with ID {job_id} not found.")
     
     return analysis
+
+
+@app.get("/api/search_terms")
+async def get_search_terms(
+    db: Session = Depends(get_db)
+):
+    terms = db.query(SearchTerm).all()
+
+    return {
+        "terms": terms
+    }
+
+
+@app.post("/api/search_terms", response_model=SearchTermSchema, status_code=201)
+async def create_search_term(
+    term: SearchTermCreate,
+    db: Session = Depends(get_db)
+):
+    new_term = SearchTerm(**term.model_dump())
+    db.add(new_term)
+    db.commit()
+    return new_term
+  
+
+@app.delete("/api/search_terms/{term_id}", status_code=204)
+async def delete_search_term(
+    term_id: int,
+    db: Session = Depends(get_db)
+):
+    term_to_delete = db.query(SearchTerm).filter_by(id=term_id).first()
+    db.delete(term_to_delete)
+    db.commit()
+    return
 
 
 # @app.get("{full_path:path}")

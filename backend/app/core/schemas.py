@@ -81,3 +81,12 @@ class JobCreate(BaseModel):
     url: str
     description: str
     source: str
+
+
+class SearchTermSchema(BaseModel):
+    id: int
+    term: str
+
+
+class SearchTermCreate(BaseModel):
+    term: str

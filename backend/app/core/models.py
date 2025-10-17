@@ -47,3 +47,10 @@ class AIAnalysis(Base):
     
     insights_list: Mapped[List["Insight"]] = relationship(back_populates="analysis")
     job: Mapped["Job"] = relationship(back_populates="analysis")
+
+
+class SearchTerm(Base):
+    __tablename__ = "search_term"
+
+    id: int = Column(Integer, primary_key=True, autoincrement=True)
+    term: str = Column(String)
