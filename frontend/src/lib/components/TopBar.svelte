@@ -1,5 +1,5 @@
 <nav
-    class="flex justify-between items-center max-h-14 py-2 px-4 bg-slate-800 text-gray-200"
+    class="flex justify-between items-center max-h-14 py-2 px-4 text-gray-800 border-b border-border dark:bg-gray-900 dark:border-gray-600 dark:text-gray-200"
 >
     <a href="/" class="text-md font-semibold">
         <div class="flex items-center space-x-2">
