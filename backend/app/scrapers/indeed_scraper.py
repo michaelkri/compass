@@ -1,7 +1,6 @@
 from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from trafilatura import extract
 from core.models import Job
 
 

@@ -5,6 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from sqlalchemy.orm import Session
 from scrapers import ALL_SCRAPERS, IndeedScraper
+from scrapers.linkedin_scraper import LinkedInScraper
 from .db import get_db_session
 from .models import Job, AIAnalysis, Insight
 from services.job_analysis import create_ai_analysis
@@ -42,6 +43,8 @@ def fetch_job_description(job_source: str, job_url: str) -> Optional[str]:
     with _create_webdriver() as driver:
         if job_source == "Indeed":
             return IndeedScraper.fetch_description(job_url, driver)
+        elif job_source == "LinkedIn":
+            return LinkedInScraper.fetch_description(job_url, driver)
     
     return ""
 
