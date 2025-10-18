@@ -1,5 +1,6 @@
 from contextlib import contextmanager
 from pathlib import Path
+import time
 from typing import Optional
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -7,7 +8,7 @@ from sqlalchemy.orm import Session
 from scrapers import ALL_SCRAPERS, IndeedScraper
 from scrapers.linkedin_scraper import LinkedInScraper
 from .db import get_db_session
-from .models import Job, AIAnalysis, Insight
+from .models import Job, AIAnalysis, Insight, SearchTerm
 from services.job_analysis import create_ai_analysis
 
 
@@ -28,11 +29,14 @@ def _create_webdriver():
 
 
 def scrape_jobs(db: Session) -> None:
+    # Get search terms from database
+    search_terms = [term[0] for term in db.query(SearchTerm.term).all()]
+
     added_count = 0
 
     with _create_webdriver() as driver:
         for scraper in ALL_SCRAPERS:
-            current_scraper = scraper("student software", "israel")
+            current_scraper = scraper(search_terms, "israel")
             for job in current_scraper.fetch_jobs(driver):
                 try:
                     db.add(job)
@@ -40,6 +44,9 @@ def scrape_jobs(db: Session) -> None:
                     added_count += 1
                 except Exception as e:
                     print(f"Failed to add scraped job: {e.args}")
+                    db.rollback()
+            # Stall to avoid bot-like behavior
+            time.sleep(3)
 
     return added_count
 

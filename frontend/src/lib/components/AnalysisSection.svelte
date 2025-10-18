@@ -4,7 +4,7 @@
     let isCollapsed = $state(true);
 </script>
 
-<div class="border-border bg-white shadow-md mb-3 rounded-lg border px-4">
+<div class="border-border bg-white mb-3 rounded-lg border px-4">
     <div class="flex">
         <button
             type="button"
