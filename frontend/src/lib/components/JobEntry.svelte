@@ -5,13 +5,16 @@
 <button
     class="job-entry-button mb-1 cursor-pointer hover:bg-accent w-full rounded-lg p-4 text-left {selectedJob?.id ===
     job.id
-        ? 'bg-slate-800 text-white shadow-md hover:bg-slate-900 dark:bg-slate-600 dark:hover:bg-slate-700'
+        ? 'bg-slate-900 text-white shadow-md hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-700'
         : 'dark:hover:bg-gray-800'}"
     onclick={onclickFunc}
 >
     <div class="mb-3">
         <h3 class="text-base leading-tight font-bold">
             {job.title}
+            {#if job.description !== null}
+                ✅
+            {/if}
         </h3>
         <p class="text-muted-foreground mt-1 text-sm">
             {job.company}

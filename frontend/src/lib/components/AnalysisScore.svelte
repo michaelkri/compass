@@ -1,7 +1,8 @@
 <script>
     let { score, summary } = $props();
 
-    let textColor, barColor;
+    let textColor = $state("");
+    let barColor = $state("");
     if (score >= 85) {
         textColor = "text-emerald-900";
         barColor = "bg-emerald-800";
