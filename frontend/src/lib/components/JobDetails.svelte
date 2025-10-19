@@ -1,5 +1,23 @@
-<script>
-    let { title, company, location, source, url, description } = $props();
+<script lang="ts">
+    let { id, title, company, location, source, url, description, jobs } = $props();
+
+    async function deleteJob() {
+        const url = "http://localhost:8000/api/jobs/";
+
+        try {
+            const response = await fetch(url + id, {
+                method: "DELETE",
+            });
+
+            if (response.status === 204) {
+                jobs = jobs.filter((job: { id: number }) => job.id != id);
+            } else {
+                console.log(response.status);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
 </script>
 
 <div id="job-details" class="mx-auto max-w-3xl">
@@ -8,7 +26,27 @@
             <h1 class="job-title text-foreground flex-1 text-2xl font-bold">
                 {title}
             </h1>
-            <!-- <button class="border-red-800 bg-red-700 hover:bg-red-800 text-white flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm cursor-pointer">Delete</button> -->
+            <button
+                class="p-2 cursor-pointer rounded-md hover:bg-gray-200 dark:hover:bg-gray-950"
+                aria-label="Delete Job"
+                onclick={() => deleteJob()}
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-5 w-5 lucide lucide-trash2-icon lucide-trash-2"
+                    ><path d="M10 11v6" /><path d="M14 11v6" /><path
+                        d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"
+                    /><path d="M3 6h18" /><path
+                        d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+                    /></svg
+                >
+            </button>
         </div>
         <div
             class="text-muted-foreground mb-4 flex flex-wrap items-center gap-3 text-sm"

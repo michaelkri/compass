@@ -10,48 +10,48 @@
     onMount(async () => {
         try {
             const response = await fetch("http://localhost:8000/api/jobs");
-            
+
             if (response.status === 200) {
                 const data = await response.json();
                 jobs = data.jobs;
-            }
-            else {
+            } else {
                 console.log(response.status);
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
         }
     });
 
     async function selectJob(job: any) {
         try {
-            const response = await fetch("http://localhost:8000/api/jobs/" + job.id);
+            const response = await fetch(
+                "http://localhost:8000/api/jobs/" + job.id,
+            );
 
             if (response.status === 200) {
                 const data = await response.json();
                 selectedJob = data;
-            }
-            else {
+            } else {
                 console.log(response.status);
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
         }
     }
 
     async function updateJobs() {
         try {
-            const response = await fetch("http://localhost:8000/api/jobs/update", {
-                method: "POST"
-            });
-            
+            const response = await fetch(
+                "http://localhost:8000/api/jobs/update",
+                {
+                    method: "POST",
+                },
+            );
+
             if (response.status !== 200) {
                 console.log(response.status);
             }
-        }
-        catch (error) {
+        } catch (error) {
             console.error(error);
         }
     }
@@ -125,11 +125,11 @@
 
     <!-- Column 2 -->
     <main
-        class="bg-white border-r border-border flex flex-col flex-1 dark:bg-gray-900 dark:text-white dark:border-gray-600"
+        class="bg-white border-r border-border flex flex-col flex-1 dark:bg-gray-900 dark:text-white dark:border-gray-600 {selectedJob === null ? 'hidden' : ''}"
     >
         <div class="overflow-y-auto p-8">
             {#if selectedJob}
-                <JobDetails {...selectedJob} />
+                <JobDetails { ...selectedJob } jobs={jobs} />
             {:else}
                 <div
                     id="job-details-placeholder"
@@ -165,7 +165,7 @@
     </main>
 
     <!-- Column 3 -->
-    <aside class="w-96 bg-white flex flex-col dark:bg-gray-900 dark:text-white">
+    <aside class="w-96 bg-white flex flex-col dark:bg-gray-900 dark:text-white {selectedJob === null ? 'hidden' : ''}">
         <div
             class="p-4 font-bold border-b border-border flex flex-shrink-0 items-center gap-2 dark:border-gray-600"
         >
@@ -177,10 +177,13 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                class="lucide lucide-sparkle-icon lucide-sparkle h-5 w-5"
-            >
-                <path
+                class="h-5 w-5 lucide lucide-sparkles-icon lucide-sparkles"
+                ><path
                     d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"
+                /><path d="M20 2v4" /><path d="M22 4h-4" /><circle
+                    cx="4"
+                    cy="20"
+                    r="2"
                 />
             </svg>
             <div class="text-foreground font-semibold">AI Analysis</div>

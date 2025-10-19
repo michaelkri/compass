@@ -49,13 +49,16 @@ def scrape_jobs(db: Session) -> None:
 
 
 def fetch_job_description(job_source: str, job_url: str) -> Optional[str]:
-    with _create_webdriver() as driver:
-        if job_source == "Indeed":
-            return IndeedScraper.fetch_description(job_url, driver)
-        elif job_source == "LinkedIn":
-            return LinkedInScraper.fetch_description(job_url, driver)
-    
-    return ""
+    try:
+        with _create_webdriver() as driver:
+            if job_source == "Indeed":
+                return IndeedScraper.fetch_description(job_url, driver)
+            elif job_source == "LinkedIn":
+                return LinkedInScraper.fetch_description(job_url, driver)
+    except:
+        pass
+
+    return "Could not fetch job description."
 
 
 def get_or_create_job_description(db: Session, job_id: int) -> Optional[Job]:

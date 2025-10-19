@@ -134,6 +134,21 @@ async def get_job_content(
     return job
 
 
+@app.delete("/api/jobs/{job_id}", status_code=204)
+async def delete_job(
+    job_id: int,
+    db: Session = Depends(get_db)
+):
+    try:
+        job_to_delete = db.query(Job).filter_by(id=job_id).first()
+        db.delete(job_to_delete)
+        db.commit()
+    except:
+        raise HTTPException(status_code=404, detail=f"Job with ID {job_id} not found.")
+        
+    return
+
+
 @app.get("/api/analysis/{job_id}", response_model=AnalysisSchema)
 async def get_job_analysis(
     job_id: int,

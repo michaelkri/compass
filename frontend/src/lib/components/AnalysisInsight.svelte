@@ -3,22 +3,28 @@
 
     // set color based on category
     let backgroundColor;
+    let style;
 
     switch (category) {
         case "Match":
             backgroundColor = "bg-green-700";
+            style = "bg-green-300 text-green-900";
             break;
         case "Missing":
             backgroundColor = "bg-red-700";
+            style = "bg-red-300 text-red-900";
             break;
         case "Partial":
             backgroundColor = "bg-amber-700";
+            style = "bg-yellow-300 text-yellow-900";
             break;
         case "Quick Learn":
             backgroundColor = "bg-indigo-700";
+            style = "bg-indigo-300 text-indigo-900";
             break;
         default:
             backgroundColor = "bg-gray-100";
+            style = "bg-gray-300 text-gray-900";
     }
 </script>
 
@@ -44,7 +50,7 @@
 </div> -->
 
 <div class="rounded-lg shadow-md border border-slate-200 overflow-hidden mb-4 dark:border-gray-600">
-    <div class="p-4 text-white rounded-t-lg {backgroundColor}">
+    <div class="p-4 rounded-t-lg {style}">
         <h1 class="text-lg font-bold">{title}</h1>
         <p class="text-sm font-light">{category}</p>
     </div>
