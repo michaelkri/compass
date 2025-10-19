@@ -11,7 +11,7 @@
         try {
             const response = await fetch(url);
             const data = await response.json();
-            searchTerms = data.terms;
+            searchTerms = data;
         }
         catch (error) {
             console.error(error);

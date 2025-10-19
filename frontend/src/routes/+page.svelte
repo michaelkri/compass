@@ -13,7 +13,7 @@
 
             if (response.status === 200) {
                 const data = await response.json();
-                jobs = data.jobs;
+                jobs = data;
             } else {
                 console.log(response.status);
             }

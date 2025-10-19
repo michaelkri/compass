@@ -1,4 +1,5 @@
 from contextlib import asynccontextmanager
+from typing import List
 from fastapi import Depends, FastAPI, HTTPException, Response
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.templating import Jinja2Templates
@@ -54,11 +55,11 @@ app = FastAPI(
 )
 
 
-app.mount(
-    "/static",
-    StaticFiles(directory=str(BASE_DIR / "backend" / "app" / "static")),
-    name="static"
-)
+# app.mount(
+#     "/static",
+#     StaticFiles(directory=str(BASE_DIR / "backend" / "app" / "static")),
+#     name="static"
+# )
 
 
 app.add_middleware(
@@ -99,15 +100,12 @@ async def update_jobs(
     }
 
 
-@app.get("/api/jobs")
+@app.get("/api/jobs", response_model=List[JobSchema])
 async def read_jobs(
     db: Session = Depends(get_db)
 ):
     jobs = db.query(Job).all()
-
-    return {
-        "jobs": jobs
-    }
+    return jobs
 
 
 @app.post("/api/jobs", response_model=JobSchema, status_code=201)
@@ -165,15 +163,12 @@ async def get_job_analysis(
     return analysis
 
 
-@app.get("/api/search_terms")
+@app.get("/api/search_terms", response_model=List[SearchTermSchema])
 async def get_search_terms(
     db: Session = Depends(get_db)
 ):
     terms = db.query(SearchTerm).all()
-
-    return {
-        "terms": terms
-    }
+    return terms
 
 
 @app.post("/api/search_terms", response_model=SearchTermSchema, status_code=201)

@@ -68,7 +68,7 @@ class JobSchema(BaseModel):
     company: str
     location: str
     url: str
-    description: str
+    description: str | None
     source: str
 
     analysis: AnalysisSchema | None
