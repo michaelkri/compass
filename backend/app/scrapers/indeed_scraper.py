@@ -1,3 +1,4 @@
+import time
 from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -34,6 +35,9 @@ class IndeedScraper(BaseScraper):
                 )
 
                 jobs.append(job)
+
+            # Stall to avoid bot-like behavior
+            time.sleep(3)
 
         return jobs
     

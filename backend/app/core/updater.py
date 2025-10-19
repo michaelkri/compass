@@ -1,6 +1,5 @@
 from contextlib import contextmanager
 from pathlib import Path
-import time
 from typing import Optional
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
@@ -45,8 +44,6 @@ def scrape_jobs(db: Session) -> None:
                 except Exception as e:
                     print(f"Failed to add scraped job: {e.args}")
                     db.rollback()
-            # Stall to avoid bot-like behavior
-            time.sleep(3)
 
     return added_count
 

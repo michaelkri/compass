@@ -1,3 +1,4 @@
+import time
 from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
@@ -10,7 +11,7 @@ class LinkedInScraper(BaseScraper):
         jobs = []
 
         for job_title in self.titles:
-            search_url = f"https://il.linkedin.com/jobs/search?keywords={job_title}&location={self.location}&f_TPR=r86400"
+            search_url = f"https://il.linkedin.com/jobs/search?keywords={job_title}&location={self.location}&f_TPR=r604800"
             
             driver.get(search_url)
 
@@ -34,6 +35,9 @@ class LinkedInScraper(BaseScraper):
                 )
 
                 jobs.append(job)
+
+            # Stall to avoid bot-like behavior
+            time.sleep(3)
 
         return jobs
     
