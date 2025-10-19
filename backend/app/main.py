@@ -29,14 +29,14 @@ async def lifespan(app: FastAPI):
     create_db_tables()
 
     try:
-        # scheduler.add_job(
-        #     func=run_update, 
-        #     trigger=CronTrigger(hour='8,11,14,17'),
-        #     id='scraper_job', 
-        #     name='Periodic Job Scraper',
-        #     replace_existing=True,
-        #     misfire_grace_time=600
-        # )
+        scheduler.add_job(
+            func=scrape_jobs, 
+            trigger=CronTrigger(hour='8,11,14,17'),
+            id='scraper_job', 
+            name='Periodic Job Scraper',
+            replace_existing=True,
+            misfire_grace_time=600
+        )
 
         scheduler.start()
         print("Scheduler started.")
