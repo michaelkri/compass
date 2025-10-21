@@ -11,6 +11,8 @@ services:
       - sqlite_data:/data
     depends_on:
       - selenium
+    env_file:
+      - ./.env
 
   frontend:
     build: ./frontend

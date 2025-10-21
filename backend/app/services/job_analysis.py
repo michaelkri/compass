@@ -7,7 +7,7 @@ from app.core.schemas import AnalysisSchema
 
 
 def _load_resume(base_dir: Path) -> str:
-    FILE_PATH = "backend/data/resume.pdf"
+    FILE_PATH = "data/resume.pdf"
 
     loader = PyPDFLoader(base_dir / FILE_PATH)
     docs = loader.load()

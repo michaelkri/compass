@@ -17,8 +17,9 @@ from app.core.schemas import AnalysisSchema, JobCreate, JobSchema, SearchTermCre
 from app.core.updater import get_or_create_ai_analysis, scrape_jobs, get_or_create_job_description
 
 
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 scheduler = AsyncIOScheduler()
 
 
