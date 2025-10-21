@@ -46,4 +46,7 @@ Create an `.env` file with your Gemini API key:
 GOOGLE_API_KEY=
 ```
 
-Then run the backend and frontend.
+Then run using Docker:
+```
+docker compose up --build
+```

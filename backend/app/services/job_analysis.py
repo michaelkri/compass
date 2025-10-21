@@ -3,7 +3,7 @@ from datetime import date
 from langchain.chat_models import init_chat_model
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.document_loaders import PyPDFLoader
-from core.schemas import AnalysisSchema
+from app.core.schemas import AnalysisSchema
 
 
 def _load_resume(base_dir: Path) -> str:

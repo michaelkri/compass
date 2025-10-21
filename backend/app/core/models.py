@@ -1,7 +1,7 @@
 from typing import Annotated, List, Literal, Optional
 from sqlalchemy import JSON, Column, ForeignKey, Integer, String, Text
 from sqlalchemy.orm import Mapped, relationship
-from .db import Base
+from app.core.db import Base
 
 
 class Job(Base):

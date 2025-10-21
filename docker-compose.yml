@@ -1,0 +1,31 @@
+volumes:
+  sqlite_data:
+
+services:
+  backend:
+    build: ./backend
+    container_name: backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - sqlite_data:/data
+    depends_on:
+      - selenium
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    volumes:
+    - ./frontend:/app
+    - /app/node_modules
+
+  selenium:
+    image: selenium/standalone-chrome:latest
+    container_name: selenium
+    shm_size: '2g'
+    ports:
+      - "4444:4444"

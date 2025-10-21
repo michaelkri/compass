@@ -2,10 +2,11 @@ from typing import List, Optional
 from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session, declarative_base
+from app.config import DATABASE_URL
 
 
-DATABASE_NAME = "jobs.db"
-DATABASE_URL = f"sqlite:///{DATABASE_NAME}"
+# DATABASE_NAME = "jobs.db"
+# DATABASE_URL = f"sqlite:///{DATABASE_NAME}"
 
 
 engine = create_engine(DATABASE_URL, echo=True)

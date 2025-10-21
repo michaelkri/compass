@@ -4,24 +4,34 @@ from typing import Optional
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from sqlalchemy.orm import Session
-from scrapers import ALL_SCRAPERS, IndeedScraper
-from scrapers.linkedin_scraper import LinkedInScraper
-from .db import get_db_session
-from .models import Job, AIAnalysis, Insight, SearchTerm
-from services.job_analysis import create_ai_analysis
+from app.scrapers import ALL_SCRAPERS, IndeedScraper
+from app.scrapers.linkedin_scraper import LinkedInScraper
+from app.core.db import get_db_session
+from app.core.models import Job, AIAnalysis, Insight, SearchTerm
+from app.services.job_analysis import create_ai_analysis
+from app.config import IN_DOCKER
 
 
 @contextmanager
 def _create_webdriver():
     chrome_options = Options()
 
-    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--headless")
     chrome_options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
     chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
     chrome_options.add_experimental_option("useAutomationExtension", False)
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
 
     try:
-        driver = webdriver.Chrome(options=chrome_options)
+        if IN_DOCKER:
+            driver = webdriver.Remote(
+                command_executor="http://selenium:4444/wd/hub",
+                options=chrome_options
+            )
+        else:
+            driver = webdriver.Chrome(options=chrome_options)
+
         yield driver
     finally:
         driver.quit()

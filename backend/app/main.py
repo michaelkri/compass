@@ -11,10 +11,10 @@ from apscheduler.triggers.cron import CronTrigger
 from sqlalchemy.orm import Session
 import os
 from dotenv import load_dotenv
-from core.db import get_db, create_db_tables
-from core.models import Job, SearchTerm
-from core.schemas import AnalysisSchema, JobCreate, JobSchema, SearchTermCreate, SearchTermSchema
-from core.updater import get_or_create_ai_analysis, scrape_jobs, get_or_create_job_description
+from app.core.db import get_db, create_db_tables
+from app.core.models import Job, SearchTerm
+from app.core.schemas import AnalysisSchema, JobCreate, JobSchema, SearchTermCreate, SearchTermSchema
+from app.core.updater import get_or_create_ai_analysis, scrape_jobs, get_or_create_job_description
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -30,7 +30,8 @@ async def lifespan(app: FastAPI):
 
     try:
         scheduler.add_job(
-            func=scrape_jobs, 
+            func=scrape_jobs,
+            args=get_db(),
             trigger=CronTrigger(hour='8,11,14,17'),
             id='scraper_job', 
             name='Periodic Job Scraper',
@@ -200,8 +201,3 @@ async def delete_search_term(
 #         return FileResponse(index_path)
 #     else:
 #         return HTMLResponse(content="<h1>Index file not found</h1>", status_code=404)
-
-
-if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)

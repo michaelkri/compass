@@ -1,7 +1,7 @@
 from abc import abstractmethod, ABC
 from typing import List
 from selenium import webdriver
-from core.models import Job
+from app.core.models import Job
 
 
 

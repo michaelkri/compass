@@ -2,8 +2,8 @@ import time
 from typing import List
 from selenium import webdriver
 from bs4 import BeautifulSoup
-from core.models import Job
-from scrapers.base_scraper import BaseScraper
+from app.core.models import Job
+from app.scrapers.base_scraper import BaseScraper
 
 
 class LinkedInScraper(BaseScraper):
